@@ -482,7 +482,6 @@ $_SESSION['r'] = $r;
 
             <div class="col-md pr-md-5 mb-5">
                 <h1>Contact in noodgevallen</h1>
-                <p>Jasper Ceunen: <a href="tel:0468279215">0468 27 92 15</a></p>
                 <p>Lowie Willems: <a href="tel:0468227664">0468 22 76 64</a></p>
                 <p>Jef Souvereyns: <a href="tel:0472796887">0472 79 68 87</a></p>
                 <br>

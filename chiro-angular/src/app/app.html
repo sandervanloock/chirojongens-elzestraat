@@ -73,8 +73,80 @@
   </div>
 </section>
 
+<!-- Rental Section -->
+<section id="section-verhuur" class="section bg-white">
+  <div class="container">
+    <h2 class="section__heading">Verhuur</h2>
+    <p class="section__lead">
+      Ons lokaal is beschikbaar voor verhuur. Perfect voor kinderfeestjes, vergaderingen of andere evenementen.
+    </p>
+
+    <div class="rental">
+      <!-- Pricing Card -->
+      <div class="rental__card rental__card--pricing">
+        <h3>Prijzen & Voorwaarden</h3>
+        <div class="rental__price">
+          <span class="rental__price-amount">€250</span>
+          <span class="rental__price-label">Vaste prijs</span>
+        </div>
+        <div class="rental__details">
+          <p><strong>Extra kosten:</strong> Verbruik elektriciteit, gas en water</p>
+          <p><strong>Waarborg:</strong> €150 (2 weken op voorhand te betalen)</p>
+        </div>
+        <div class="rental__location">
+          <h4>Locatie</h4>
+          <p>Clemenceaustraat 111E<br>2860 Sint-Katelijne-Waver</p>
+        </div>
+      </div>
+
+      <!-- Infrastructure Card -->
+      <div class="rental__card rental__card--features">
+        <h3>Infrastructuur</h3>
+        <ul class="checklist">
+          <li *ngFor="let item of rentalInfrastructure" class="checklist__item">
+            <svg class="checklist__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>{{ item.text }}</span>
+          </li>
+        </ul>
+
+        <h4 class="mt-xl">Omgeving</h4>
+        <ul class="checklist">
+          <li *ngFor="let item of rentalSurroundings" class="checklist__item">
+            <svg class="checklist__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>{{ item.text }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Calendar Card -->
+      <div class="rental__card rental__card--calendar">
+        <h3>Beschikbaarheid</h3>
+        <p>Bekijk onze kalender voor beschikbare data:</p>
+        <div class="calendar-embed">
+          <iframe
+            src="https://calendar.google.com/calendar/embed?src=chiroelzestraat%40gmail.com&ctz=Europe%2FBrussels"
+            frameborder="0"
+            scrolling="no"
+            title="Verhuur kalender">
+          </iframe>
+        </div>
+        <a href="https://www.facebook.com/media/set/?set=a.1568880913166762.1073741846.234251636629703&type=3"
+           class="btn btn--secondary mt-lg"
+           target="_blank"
+           rel="noopener">
+          Bekijk foto's van het lokaal
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Stats Section -->
-<section id="section-cijfers" class="section bg-white">
+<section id="section-cijfers" class="section bg-light">
   <div class="container">
     <h2 class="section__heading">Cijfers</h2>
 
@@ -87,8 +159,63 @@
   </div>
 </section>
 
+<!-- Program Section -->
+<section id="section-tprogram" class="section bg-white">
+  <div class="container">
+    <h2 class="section__heading">Programma</h2>
+    <p class="section__lead">
+      Download hier onze programma's en het kampboekje voor alle informatie over onze activiteiten.
+    </p>
+
+    <div class="program">
+      <div *ngFor="let program of programs" class="program-card">
+        <div class="program-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <h3 class="program-card__title">{{ program.title }}</h3>
+        <a [href]="program.url" class="btn btn--primary" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Download PDF
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section id="section-faq" class="section bg-light">
+  <div class="container">
+    <h2 class="section__heading">Veelgestelde Vragen</h2>
+    <p class="section__lead">
+      Vind antwoorden op de meest gestelde vragen over Chirojongens Elzestraat.
+    </p>
+
+    <div class="faq">
+      <div *ngFor="let faq of faqs; let i = index" class="faq-item" [class.faq-item--expanded]="faq.expanded">
+        <button class="faq-item__question" (click)="toggleFAQ(i)">
+          <span>{{ faq.question }}</span>
+          <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-item__answer" [innerHTML]="faq.answer"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Contact Preview Section -->
-<section id="section-contact" class="section bg-light">
+<section id="section-contact" class="section bg-white">
   <div class="container">
     <h2 class="section__heading">Contact</h2>
 

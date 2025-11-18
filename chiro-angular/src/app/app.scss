@@ -294,6 +294,308 @@
 }
 
 // ==================================
+// RENTAL SECTION
+// ==================================
+
+.rental {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: $spacing-2xl;
+  margin-top: $spacing-3xl;
+
+  @include mobile-only {
+    grid-template-columns: 1fr;
+  }
+
+  &__card {
+    @include card-base;
+    @include slide-up;
+
+    h3 {
+      font-family: $font-heading;
+      font-size: $font-size-2xl;
+      color: $chiro-navy;
+      margin-bottom: $spacing-lg;
+    }
+
+    h4 {
+      font-family: $font-heading;
+      font-size: $font-size-xl;
+      color: $chiro-navy;
+      margin-bottom: $spacing-md;
+    }
+
+    p {
+      color: $medium-gray;
+      line-height: $line-height-relaxed;
+      margin-bottom: $spacing-md;
+    }
+  }
+
+  &__card--calendar {
+    grid-column: 1 / -1;
+  }
+
+  &__price {
+    text-align: center;
+    padding: $spacing-2xl;
+    background: linear-gradient(135deg, $chiro-red 0%, darken($chiro-red, 10%) 100%);
+    border-radius: $border-radius-lg;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__price-amount {
+    display: block;
+    font-family: $font-heading;
+    font-size: $font-size-6xl;
+    font-weight: $font-weight-extrabold;
+    color: $white;
+    line-height: 1;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__price-label {
+    font-size: $font-size-lg;
+    color: rgba($white, 0.9);
+    font-weight: $font-weight-semibold;
+  }
+
+  &__details {
+    background: $light-bg;
+    padding: $spacing-lg;
+    border-radius: $border-radius-md;
+    border-left: 4px solid $chiro-blue;
+    margin-bottom: $spacing-lg;
+
+    p {
+      margin-bottom: $spacing-sm;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      strong {
+        color: $chiro-navy;
+      }
+    }
+  }
+
+  &__location {
+    text-align: center;
+    padding-top: $spacing-lg;
+    border-top: 2px solid $light-bg;
+
+    p {
+      font-size: $font-size-lg;
+      color: $dark-gray;
+      font-weight: $font-weight-medium;
+    }
+  }
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-md;
+    padding: $spacing-sm 0;
+    color: $dark-gray;
+    font-size: $font-size-base;
+    line-height: $line-height-relaxed;
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    color: $chiro-blue;
+    stroke-width: 3;
+  }
+}
+
+.calendar-embed {
+  position: relative;
+  width: 100%;
+  padding-bottom: 75%; // 4:3 aspect ratio
+  background: $light-bg;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  margin-top: $spacing-lg;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}
+
+// ==================================
+// PROGRAM SECTION
+// ==================================
+
+.program {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-2xl;
+  max-width: 800px;
+  margin: $spacing-3xl auto 0;
+
+  @include mobile-only {
+    grid-template-columns: 1fr;
+  }
+}
+
+.program-card {
+  @include card-base;
+  text-align: center;
+  @include slide-up;
+
+  &__icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto $spacing-lg;
+    border-radius: $border-radius-xl;
+    @include flex-center;
+    background: linear-gradient(135deg, $chiro-blue 0%, darken($chiro-blue, 10%) 100%);
+    box-shadow: $shadow-lg;
+
+    svg {
+      width: 40px;
+      height: 40px;
+      color: $white;
+    }
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $chiro-navy;
+    margin-bottom: $spacing-xl;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: $shadow-2xl;
+
+    .program-card__icon {
+      transform: scale(1.1) rotate(-5deg);
+    }
+  }
+}
+
+// ==================================
+// FAQ SECTION
+// ==================================
+
+.faq {
+  max-width: 800px;
+  margin: $spacing-3xl auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.faq-item {
+  background: $white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+  transition: all $transition-base;
+  @include slide-up;
+
+  &__question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-lg;
+    padding: $spacing-lg $spacing-xl;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: $font-heading;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $chiro-navy;
+    transition: all $transition-fast;
+
+    &:hover {
+      color: $chiro-blue;
+    }
+
+    span {
+      flex: 1;
+    }
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    color: $chiro-blue;
+    transition: transform $transition-base;
+  }
+
+  &__answer {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 $spacing-xl;
+    color: $medium-gray;
+    line-height: $line-height-relaxed;
+    font-size: $font-size-base;
+    transition: all $transition-base;
+
+    a {
+      color: $chiro-blue;
+      text-decoration: underline;
+      font-weight: $font-weight-semibold;
+
+      &:hover {
+        color: $chiro-red;
+      }
+    }
+  }
+
+  &--expanded {
+    box-shadow: $shadow-md;
+
+    .faq-item__icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-item__answer {
+      max-height: 500px;
+      padding: 0 $spacing-xl $spacing-lg;
+      margin-top: $spacing-sm;
+    }
+  }
+
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+}
+
+// ==================================
 // CONTACT SECTION
 // ==================================
 

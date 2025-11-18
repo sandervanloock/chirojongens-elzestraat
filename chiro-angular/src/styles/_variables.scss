@@ -1,0 +1,155 @@
+// ============================================
+// COLOR PALETTE - Chirojongens Elzestraat
+// ============================================
+
+// Primary Colors (from current site)
+$chiro-red: #FF5252;          // Theme color from meta tag
+$chiro-blue: #4586ff;         // From loader/links
+$chiro-navy: #2C3E50;         // Professional dark
+
+// Secondary Colors
+$chiro-orange: #FF6B35;       // Energetic accent
+$chiro-yellow: #FFC107;       // Warm highlight (from dynamic nav)
+
+// Neutrals
+$white: #FFFFFF;
+$light-bg: #F8F9FA;
+$light-gray: #EEEEEE;
+$medium-gray: #6C757D;
+$dark-gray: #343A40;
+$black: #000000;
+
+// Semantic Colors
+$success: #28A745;
+$warning: #FFC107;
+$error: #DC3545;
+$info: #17A2B8;
+
+// ============================================
+// SPACING SYSTEM (8px base)
+// ============================================
+
+$spacing-xs: 0.25rem;   // 4px
+$spacing-sm: 0.5rem;    // 8px
+$spacing-md: 1rem;      // 16px
+$spacing-lg: 1.5rem;    // 24px
+$spacing-xl: 2rem;      // 32px
+$spacing-2xl: 3rem;     // 48px
+$spacing-3xl: 4rem;     // 64px
+$spacing-4xl: 5rem;     // 80px
+$spacing-5xl: 6rem;     // 96px
+
+// ============================================
+// TYPOGRAPHY
+// ============================================
+
+// Font Families (modernizing from Raleway to Inter/Poppins)
+$font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+$font-heading: 'Poppins', sans-serif;
+
+// Font Sizes
+$font-size-xs: 0.75rem;    // 12px
+$font-size-sm: 0.875rem;   // 14px
+$font-size-base: 1rem;     // 16px
+$font-size-lg: 1.125rem;   // 18px
+$font-size-xl: 1.25rem;    // 20px
+$font-size-2xl: 1.5rem;    // 24px
+$font-size-3xl: 1.875rem;  // 30px
+$font-size-4xl: 2.25rem;   // 36px
+$font-size-5xl: 3rem;      // 48px
+$font-size-6xl: 3.75rem;   // 60px
+
+// Font Weights
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+// Line Heights
+$line-height-tight: 1.2;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.75;
+$line-height-loose: 2;
+
+// ============================================
+// BREAKPOINTS
+// ============================================
+
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1536px;
+
+// ============================================
+// BORDERS & RADIUS
+// ============================================
+
+$border-width: 1px;
+$border-width-thick: 2px;
+
+$border-radius-sm: 0.25rem;   // 4px
+$border-radius-md: 0.5rem;    // 8px
+$border-radius-lg: 0.75rem;   // 12px
+$border-radius-xl: 1rem;      // 16px
+$border-radius-2xl: 1.5rem;   // 24px
+$border-radius-full: 9999px;
+
+// ============================================
+// SHADOWS
+// ============================================
+
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+$shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+// ============================================
+// TRANSITIONS
+// ============================================
+
+$transition-fast: 150ms ease-in-out;
+$transition-base: 250ms ease-in-out;
+$transition-slow: 350ms ease-in-out;
+
+$transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+// ============================================
+// Z-INDEX LAYERS
+// ============================================
+
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+
+// ============================================
+// LAYOUT
+// ============================================
+
+$container-max-width: 1280px;
+$container-padding: $spacing-lg;
+
+// ============================================
+// SECTION SPECIFIC
+// ============================================
+
+// Hero Section
+$hero-min-height: 100vh;
+$hero-overlay-opacity: 0.6;
+
+// Navbar
+$navbar-height: 70px;
+$navbar-bg: rgba(52, 58, 64, 0.95);
+$navbar-text-color: $white;
+
+// Footer
+$footer-bg: $dark-gray;
+$footer-text-color: $medium-gray;

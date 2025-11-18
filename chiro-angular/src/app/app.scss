@@ -136,6 +136,122 @@
     justify-content: center;
     flex-wrap: wrap;
   }
+
+  // Hero Carousel
+  &__carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+  }
+
+  &__carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &__carousel-slide {
+    min-width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &__carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    background: rgba($white, 0.2);
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba($white, 0.3);
+    color: $white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all $transition-base;
+    padding: 0;
+
+    &:hover {
+      background: rgba($white, 0.3);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    &--prev {
+      left: $spacing-lg;
+    }
+
+    &--next {
+      right: $spacing-lg;
+    }
+
+    @include mobile-only {
+      width: 40px;
+      height: 40px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      &--prev {
+        left: $spacing-sm;
+      }
+
+      &--next {
+        right: $spacing-sm;
+      }
+    }
+  }
+
+  &__carousel-dots {
+    position: absolute;
+    bottom: $spacing-2xl;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: $spacing-sm;
+    z-index: 2;
+  }
+
+  &__carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba($white, 0.4);
+    border: 2px solid rgba($white, 0.6);
+    cursor: pointer;
+    transition: all $transition-base;
+    padding: 0;
+
+    &:hover {
+      background: rgba($white, 0.6);
+      transform: scale(1.2);
+    }
+
+    &--active {
+      background: $white;
+      transform: scale(1.3);
+    }
+  }
 }
 
 // ==================================
@@ -180,6 +296,15 @@
     max-width: 700px;
     margin: 0 auto $spacing-3xl;
     line-height: $line-height-relaxed;
+  }
+
+  &__subheading {
+    font-family: $font-heading;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    text-align: center;
+    color: $chiro-navy;
+    margin-bottom: $spacing-2xl;
   }
 }
 
@@ -246,6 +371,56 @@
     .group-card__icon {
       transform: scale(1.1) rotate(5deg);
     }
+  }
+}
+
+// ==================================
+// IMAGE GALLERY
+// ==================================
+
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: $spacing-lg;
+  margin-top: $spacing-2xl;
+
+  @include mobile-only {
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+  }
+
+  &__item {
+    position: relative;
+    overflow: hidden;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-md;
+    transition: all $transition-base;
+    @include slide-up;
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: $shadow-2xl;
+
+      .image-gallery__img {
+        transform: scale(1.1);
+      }
+    }
+
+    &--large {
+      @include tablet-up {
+        grid-column: span 2;
+      }
+    }
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform $transition-slow;
+    aspect-ratio: 4 / 3;
   }
 }
 
@@ -726,4 +901,16 @@
       transform: translateY(-4px);
     }
   }
+}
+
+// ==================================
+// UTILITY CLASSES
+// ==================================
+
+.mt-xl {
+  margin-top: $spacing-3xl !important;
+}
+
+.mt-lg {
+  margin-top: $spacing-2xl !important;
 }

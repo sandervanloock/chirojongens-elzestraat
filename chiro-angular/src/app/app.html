@@ -29,6 +29,37 @@
 
 <!-- Hero Section -->
 <section id="section-home" class="hero">
+  <div class="hero__carousel">
+    <div class="hero__carousel-track" [style.transform]="'translateX(-' + (currentHeroImage * 100) + '%)'">
+      <div *ngFor="let image of heroImages" class="hero__carousel-slide">
+        <img
+          [src]="image.src"
+          [alt]="image.alt"
+          class="hero__image"
+          loading="eager"
+          fetchpriority="high">
+      </div>
+    </div>
+    <button class="hero__carousel-btn hero__carousel-btn--prev" (click)="prevHeroImage()" aria-label="Vorige afbeelding">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <button class="hero__carousel-btn hero__carousel-btn--next" (click)="nextHeroImage()" aria-label="Volgende afbeelding">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+    <div class="hero__carousel-dots">
+      <button
+        *ngFor="let image of heroImages; let i = index"
+        class="hero__carousel-dot"
+        [class.hero__carousel-dot--active]="i === currentHeroImage"
+        (click)="setHeroImage(i)"
+        [attr.aria-label]="'Ga naar afbeelding ' + (i + 1)">
+      </button>
+    </div>
+  </div>
   <div class="hero__overlay"></div>
   <div class="container">
     <div class="hero__content">
@@ -68,6 +99,19 @@
         <h3 class="group-card__name">{{ group.name }}</h3>
         <p class="group-card__age">{{ group.ageRange }}</p>
         <p class="group-card__time">{{ group.time }}</p>
+      </div>
+    </div>
+
+    <h3 class="section__subheading mt-xl">Sfeerbeelden</h3>
+    <div class="image-gallery">
+      <div *ngFor="let image of groupImages; let i = index" class="image-gallery__item" [style.animation-delay.ms]="i * 50">
+        <img
+          [src]="image.src"
+          [alt]="image.alt"
+          class="image-gallery__img"
+          loading="lazy"
+          width="400"
+          height="300">
       </div>
     </div>
   </div>
@@ -145,8 +189,30 @@
   </div>
 </section>
 
+<!-- Community Section -->
+<section class="section bg-light">
+  <div class="container">
+    <h2 class="section__heading">Ons Lokaal & Activiteiten</h2>
+    <p class="section__lead">
+      Ontdek ons gezellig lokaal, onze faciliteiten en de sfeer tijdens onze activiteiten.
+    </p>
+
+    <div class="image-gallery">
+      <div *ngFor="let image of communityImages; let i = index" class="image-gallery__item image-gallery__item--large" [style.animation-delay.ms]="i * 50">
+        <img
+          [src]="image.src"
+          [alt]="image.alt"
+          class="image-gallery__img"
+          loading="lazy"
+          width="600"
+          height="450">
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Stats Section -->
-<section id="section-cijfers" class="section bg-light">
+<section id="section-cijfers" class="section bg-white">
   <div class="container">
     <h2 class="section__heading">Cijfers</h2>
 

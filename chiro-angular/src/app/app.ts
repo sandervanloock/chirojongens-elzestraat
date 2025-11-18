@@ -29,6 +29,17 @@ interface FAQItem {
   expanded?: boolean;
 }
 
+interface HeroImage {
+  src: string;
+  alt: string;
+}
+
+interface GalleryImage {
+  src: string;
+  alt: string;
+  category: string;
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -38,6 +49,29 @@ interface FAQItem {
 })
 export class App {
   currentYear = new Date().getFullYear();
+  currentHeroImage = 0;
+
+  heroImages: HeroImage[] = [
+    { src: '/assets/images/hero/golden_hour_sunset.jpeg', alt: 'Chiroleden bij zonsondergang tijdens activiteit' },
+    { src: '/assets/images/hero/costume_bonfire_1.jpeg', alt: 'Chiroleden in kostuum bij kampvuur' },
+    { src: '/assets/images/hero/stage_performance.jpeg', alt: 'Toneelvoorstelling door chiroleden' },
+    { src: '/assets/images/hero/costume_bonfire_2.jpeg', alt: 'Groepsfoto bij kampvuur' }
+  ];
+
+  groupImages: GalleryImage[] = [
+    { src: '/assets/images/groups/group_games.jpeg', alt: 'Groepsspellen tijdens activiteit', category: 'groups' },
+    { src: '/assets/images/groups/fun_together.jpeg', alt: 'Plezier maken samen', category: 'groups' },
+    { src: '/assets/images/groups/group_exploration.jpeg', alt: 'Samen op verkenning', category: 'groups' },
+    { src: '/assets/images/groups/messy_play.jpeg', alt: 'Stoeiende kinderen tijdens spel', category: 'groups' },
+    { src: '/assets/images/groups/flour_face_fun.jpeg', alt: 'Spelletjes met meel', category: 'groups' }
+  ];
+
+  communityImages: GalleryImage[] = [
+    { src: '/assets/images/community/facilities_1.jpeg', alt: 'Ons chirolokaal van buiten', category: 'community' },
+    { src: '/assets/images/community/facilities_2.jpeg', alt: 'Ons buitenterrein met speeltoestellen', category: 'community' },
+    { src: '/assets/images/community/cooking_crew.jpeg', alt: 'Koken tijdens activiteit', category: 'community' },
+    { src: '/assets/images/community/food_service.jpeg', alt: 'Samen eten', category: 'community' }
+  ];
 
   navItems: NavItem[] = [
     { label: 'Home', href: '#section-home' },
@@ -145,5 +179,19 @@ export class App {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
+  }
+
+  nextHeroImage(): void {
+    this.currentHeroImage = (this.currentHeroImage + 1) % this.heroImages.length;
+  }
+
+  prevHeroImage(): void {
+    this.currentHeroImage = this.currentHeroImage === 0
+      ? this.heroImages.length - 1
+      : this.currentHeroImage - 1;
+  }
+
+  setHeroImage(index: number): void {
+    this.currentHeroImage = index;
   }
 }

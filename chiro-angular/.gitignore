@@ -41,3 +41,16 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Source images (too large for git)
+*.pdf
+*.pptx
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+env/
+/public/assets/images/all/

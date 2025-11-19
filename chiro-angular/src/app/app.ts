@@ -1,6 +1,5 @@
-import { Component, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import {Component, HostListener} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 interface Group {
   name: string;
@@ -43,7 +42,7 @@ interface GalleryImage {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -122,8 +121,8 @@ export class App {
   ];
 
   programs: ProgramItem[] = [
-    { title: 'Kampboekje 2025', url: '/assets/kampboekje-2025.pdf' },
-    { title: 'Programma April-Juni 2025', url: '/assets/program-april-juni-2025.pdf' }
+    {title: '\'t Program september - december 2025', url: '/assets/Program-Sep-Dec.2025.pdf'},
+    {title: 'Kampboekje 2025', url: '/assets/kampboekje2025.pdf'}
   ];
 
   faqs: FAQItem[] = [
@@ -144,7 +143,7 @@ export class App {
     },
     {
       question: 'Wat is het beleid rond roken, vapen en drugs?',
-      answer: 'Wij hanteren een streng beleid. Roken, vapen en drugs zijn ten strengste verboden op alle activiteiten en op het terrein. Voor meer informatie, bekijk ons <a href="https://www.chiroelzestraat.be/documenten/Roken-Vapen-Drugs%20beleid.pdf" target="_blank" rel="noopener">volledige beleid</a>.',
+      answer: 'Wij hanteren een streng beleid. Roken, vapen en drugs zijn ten strengste verboden op alle activiteiten en op het terrein. Voor meer informatie, bekijk ons <a href="https://docs.google.com/document/d/1wAZEWRUqxB2IpmUwKgUxwfvjvoU_3fP9" target="_blank" rel="noopener">volledige beleid</a>.',
       expanded: false
     },
     {

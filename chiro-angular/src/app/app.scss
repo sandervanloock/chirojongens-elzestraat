@@ -722,6 +722,14 @@
     color: $dark-gray;
     font-size: $font-size-base;
     line-height: $line-height-relaxed;
+
+    &--negative {
+      color: $chiro-red;
+
+      .checklist__icon {
+        color: $chiro-red;
+      }
+    }
   }
 
   &__icon {

@@ -103,20 +103,21 @@ export class App {
   ];
 
   rentalInfrastructure: RentalFeature[] = [
-    { text: '1 grote zaal' },
-    { text: '4 kleine zaaltjes' },
-    { text: 'Volledig uitgeruste keuken' },
+    { text: '1 groot heem' },
+    { text: '4 kleine hemen' },
+    { text: 'Volledig uitgeruste keuken (bestek, borden, kookpotten, etc.)' },
     { text: 'Materiaal (tafels, stoelen, kookgerei)' },
     { text: 'Koelkast en diepvriezer' },
     { text: 'Verwarming' },
-    { text: 'Sanitair' },
+    { text: 'Sanitair & douche' },
     { text: 'Grote tuin met speeltuigen' }
   ];
 
   rentalSurroundings: RentalFeature[] = [
-    { text: 'Zwembad op 100 meter' },
-    { text: 'Park op 100 meter' },
-    { text: 'Winkels op 200 meter' },
+    { text: 'Zwembad' },
+    { text: 'Park, basketpleintje' },
+    { text: 'Spar, bakker, frietkot' },
+    { text: 'Colruyt (5 minuten met wagen)' },
     { text: 'Gratis parking' }
   ];
 

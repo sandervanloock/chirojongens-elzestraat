@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
@@ -50,27 +50,12 @@ interface GalleryImage {
 export class App {
   currentYear = new Date().getFullYear();
   currentHeroImage = 0;
+  mobileMenuOpen = false;
 
   heroImages: HeroImage[] = [
     { src: '/assets/images/hero/golden_hour_sunset.jpeg', alt: 'Chiroleden bij zonsondergang tijdens activiteit' },
-    { src: '/assets/images/hero/costume_bonfire_1.jpeg', alt: 'Chiroleden in kostuum bij kampvuur' },
-    { src: '/assets/images/hero/stage_performance.jpeg', alt: 'Toneelvoorstelling door chiroleden' },
-    { src: '/assets/images/hero/costume_bonfire_2.jpeg', alt: 'Groepsfoto bij kampvuur' }
-  ];
-
-  groupImages: GalleryImage[] = [
-    { src: '/assets/images/groups/group_games.jpeg', alt: 'Groepsspellen tijdens activiteit', category: 'groups' },
-    { src: '/assets/images/groups/fun_together.jpeg', alt: 'Plezier maken samen', category: 'groups' },
-    { src: '/assets/images/groups/group_exploration.jpeg', alt: 'Samen op verkenning', category: 'groups' },
-    { src: '/assets/images/groups/messy_play.jpeg', alt: 'Stoeiende kinderen tijdens spel', category: 'groups' },
-    { src: '/assets/images/groups/flour_face_fun.jpeg', alt: 'Spelletjes met meel', category: 'groups' }
-  ];
-
-  communityImages: GalleryImage[] = [
-    { src: '/assets/images/community/facilities_1.jpeg', alt: 'Ons chirolokaal van buiten', category: 'community' },
-    { src: '/assets/images/community/facilities_2.jpeg', alt: 'Ons buitenterrein met speeltoestellen', category: 'community' },
-    { src: '/assets/images/community/cooking_crew.jpeg', alt: 'Koken tijdens activiteit', category: 'community' },
-    { src: '/assets/images/community/food_service.jpeg', alt: 'Samen eten', category: 'community' }
+    { src: '/assets/images/hero/outdoor_adventure.jpeg', alt: 'Avontuurlijke uitstap met prachtig uitzicht' },
+    { src: '/assets/images/hero/flour_face_hero.jpeg', alt: 'Plezier maken tijdens spelletjes op kamp' }
   ];
 
   navItems: NavItem[] = [
@@ -193,5 +178,25 @@ export class App {
 
   setHeroImage(index: number): void {
     this.currentHeroImage = index;
+  }
+
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
+  closeMobileMenu(): void {
+    this.mobileMenuOpen = false;
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    // Only handle arrow keys when hero section is in view or focused
+    if (event.key === 'ArrowLeft') {
+      this.prevHeroImage();
+      event.preventDefault();
+    } else if (event.key === 'ArrowRight') {
+      this.nextHeroImage();
+      event.preventDefault();
+    }
   }
 }

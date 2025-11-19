@@ -6,19 +6,25 @@
         Chirojongens Elzestraat
       </a>
 
-      <ul class="navbar__menu">
+      <button class="navbar__hamburger" [class.navbar__hamburger--active]="mobileMenuOpen" (click)="toggleMobileMenu()" aria-label="Menu" aria-expanded="{{mobileMenuOpen}}">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="navbar__menu" [class.navbar__menu--open]="mobileMenuOpen">
         <li *ngFor="let item of navItems" class="navbar__item">
           <a
             [href]="item.href"
             [target]="item.external ? '_blank' : '_self'"
             [rel]="item.external ? 'noopener noreferrer' : ''"
             class="navbar__link"
-            (click)="!item.external && scrollToSection(item.href); !item.external && $event.preventDefault()">
+            (click)="!item.external && scrollToSection(item.href); !item.external && $event.preventDefault(); closeMobileMenu()">
             {{ item.label }}
           </a>
         </li>
         <li class="navbar__item">
-          <a href="https://smart.chiroelzestraat.be/" class="navbar__cta" target="_blank" rel="noopener">
+          <a href="https://smart.chiroelzestraat.be/" class="navbar__cta" target="_blank" rel="noopener" (click)="closeMobileMenu()">
             Inschrijven
           </a>
         </li>
@@ -101,19 +107,6 @@
         <p class="group-card__time">{{ group.time }}</p>
       </div>
     </div>
-
-    <h3 class="section__subheading mt-xl">Sfeerbeelden</h3>
-    <div class="image-gallery">
-      <div *ngFor="let image of groupImages; let i = index" class="image-gallery__item" [style.animation-delay.ms]="i * 50">
-        <img
-          [src]="image.src"
-          [alt]="image.alt"
-          class="image-gallery__img"
-          loading="lazy"
-          width="400"
-          height="300">
-      </div>
-    </div>
   </div>
 </section>
 
@@ -174,7 +167,7 @@
           <iframe
             src="https://calendar.google.com/calendar/embed?src=chiroelzestraat%40gmail.com&ctz=Europe%2FBrussels"
             frameborder="0"
-            scrolling="no"
+            scrolling="yes"
             title="Verhuur kalender">
           </iframe>
         </div>
@@ -184,28 +177,6 @@
            rel="noopener">
           Bekijk foto's van het lokaal
         </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Community Section -->
-<section class="section bg-light">
-  <div class="container">
-    <h2 class="section__heading">Ons Lokaal & Activiteiten</h2>
-    <p class="section__lead">
-      Ontdek ons gezellig lokaal, onze faciliteiten en de sfeer tijdens onze activiteiten.
-    </p>
-
-    <div class="image-gallery">
-      <div *ngFor="let image of communityImages; let i = index" class="image-gallery__item image-gallery__item--large" [style.animation-delay.ms]="i * 50">
-        <img
-          [src]="image.src"
-          [alt]="image.alt"
-          class="image-gallery__img"
-          loading="lazy"
-          width="600"
-          height="450">
       </div>
     </div>
   </div>

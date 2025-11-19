@@ -202,3 +202,28 @@ body {
 html {
   scroll-padding-top: calc($navbar-height + $spacing-md);
 }
+
+// ============================================
+// ACCESSIBILITY - REDUCED MOTION
+// ============================================
+
+// Respect user's motion preferences
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  // Keep fade-in but make it instant
+  .fade-in,
+  .slide-up,
+  .animate-pulse {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

@@ -46,6 +46,6 @@ jobs:
           password: ${{ secrets.SFTP_PASSWORD }}
           port: 22
           local_path: './dist/chiro-angular/browser/*'
-          remote_path: '/customers/9/b/5/chiroelzestraat.be/httpd.www/chiro-angular'
+          remote_path: '/customers/9/b/5/chiroelzestraat.be/httpd.www/chirojongens-new'
           sftp_only: true
           delete_remote_files: false

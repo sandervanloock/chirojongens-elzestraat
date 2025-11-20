@@ -1,0 +1,316 @@
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar__content">
+      <a href="#section-home" class="navbar__brand" (click)="scrollToSection('#section-home'); $event.preventDefault()">
+        Chirojongens Elzestraat
+      </a>
+
+      <button class="navbar__hamburger" [class.navbar__hamburger--active]="mobileMenuOpen" (click)="toggleMobileMenu()" aria-label="Menu" aria-expanded="{{mobileMenuOpen}}">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="navbar__menu" [class.navbar__menu--open]="mobileMenuOpen">
+        <li *ngFor="let item of navItems" class="navbar__item">
+          <a
+            [href]="item.href"
+            [target]="item.external ? '_blank' : '_self'"
+            [rel]="item.external ? 'noopener noreferrer' : ''"
+            class="navbar__link"
+            (click)="!item.external && scrollToSection(item.href); !item.external && $event.preventDefault(); closeMobileMenu()">
+            {{ item.label }}
+          </a>
+        </li>
+        <li class="navbar__item">
+          <a href="https://smart.chiroelzestraat.be/" class="navbar__cta" target="_blank" rel="noopener" (click)="closeMobileMenu()">
+            Inschrijven
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="section-home" class="hero">
+  <div class="hero__carousel">
+    <div class="hero__carousel-track" [style.transform]="'translateX(-' + (currentHeroImage * 100) + '%)'">
+      <div *ngFor="let image of heroImages" class="hero__carousel-slide">
+        <img
+          [src]="image.src"
+          [alt]="image.alt"
+          class="hero__image"
+          loading="eager"
+          fetchpriority="high">
+      </div>
+    </div>
+    <button class="hero__carousel-btn hero__carousel-btn--prev" (click)="prevHeroImage()" aria-label="Vorige afbeelding">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <button class="hero__carousel-btn hero__carousel-btn--next" (click)="nextHeroImage()" aria-label="Volgende afbeelding">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+    <div class="hero__carousel-dots">
+      <button
+        *ngFor="let image of heroImages; let i = index"
+        class="hero__carousel-dot"
+        [class.hero__carousel-dot--active]="i === currentHeroImage"
+        (click)="setHeroImage(i)"
+        [attr.aria-label]="'Ga naar afbeelding ' + (i + 1)">
+      </button>
+    </div>
+  </div>
+  <div class="hero__overlay"></div>
+  <div class="container">
+    <div class="hero__content">
+      <h1 class="hero__title fade-in">
+        Welkom bij Chirojongens Elzestraat
+      </h1>
+      <p class="hero__subtitle slide-up">
+        Elke zondag avontuur en plezier voor jongens van 6 tot 18 jaar
+      </p>
+      <div class="hero__actions slide-up">
+        <a href="https://smart.chiroelzestraat.be/" class="btn btn--primary" target="_blank">
+          Schrijf je in
+        </a>
+        <a href="#section-groepen" class="btn btn--secondary" (click)="scrollToSection('#section-groepen'); $event.preventDefault()">
+          Ontdek de groepen
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Groups Section -->
+<section id="section-groepen" class="section bg-light">
+  <div class="container">
+    <h2 class="section__heading">Groepen</h2>
+    <p class="section__lead">
+      De leden zijn opgedeeld in groepen, afhankelijk van hun leeftijd.
+    </p>
+
+    <div class="groups">
+      <div *ngFor="let group of groups; let i = index" class="group-card" [style.animation-delay.ms]="i * 100">
+        <div class="group-card__icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5zm0 8c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3-1.346 3-3 3zm0 2c-4.411 0-8 2.692-8 6v4h16v-4c0-3.308-3.589-6-8-6z"/>
+          </svg>
+        </div>
+        <h3 class="group-card__name">{{ group.name }}</h3>
+        <p class="group-card__age">{{ group.ageRange }}</p>
+        <p class="group-card__time">{{ group.time }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Rental Section -->
+<section id="section-verhuur" class="section bg-white">
+  <div class="container">
+    <h2 class="section__heading">Verhuur</h2>
+    <p class="section__lead">
+      Onze lokalen zijn enkel beschikbaar tijdens weekends. De vaste kosten zijn vastgelegd op 250 euro. Het verbruik van gas en elektriciteit wordt berekend door middel van de meterstanden. Het contract vindt u <a href="https://verhuur.chiroelzestraat.be/Huurcontract Chirojongens Elzestraat 2024-2025.pdf" target="_blank" rel="noopener">hier</a>.
+    </p>
+
+    <div class="rental">
+      <!-- Pricing Card -->
+      <div class="rental__card rental__card--pricing">
+        <h3>Prijzen & Voorwaarden</h3>
+        <div class="rental__price">
+          <span class="rental__price-amount">€250</span>
+          <span class="rental__price-label">Vaste prijs</span>
+        </div>
+        <div class="rental__details">
+          <p><strong>Extra kosten:</strong> Verbruik elektriciteit, gas en water</p>
+
+          <h4 class="mt-lg">Waarborg</h4>
+          <p>De waarborg van <strong>€150</strong> wordt ten laatste twee weken op voorhand betaald op rekeningnummer <strong>BE87 7350 6146 9894</strong>.</p>
+          <p>Indien de huurder het weekend annuleert tot een termijn van 1 week op voorhand, wordt de waarborg teruggestort aan de huurder. Gebeurt de opzegging later dan wordt de waarborg niet teruggestort.</p>
+        </div>
+        <div class="rental__location">
+          <h4>Locatie</h4>
+          <p>Clemenceaustraat 111E<br>2860 Sint-Katelijne-Waver</p>
+          <p class="text-muted">Achter de kerk aan de rechterkant</p>
+        </div>
+      </div>
+
+      <!-- Infrastructure Card -->
+      <div class="rental__card rental__card--features">
+        <h3>Infrastructuur</h3>
+        <ul class="checklist">
+          <li *ngFor="let item of rentalInfrastructure" class="checklist__item">
+            <svg class="checklist__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>{{ item.text }}</span>
+          </li>
+          <li class="checklist__item checklist__item--negative">
+            <svg class="checklist__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            <span><strong>GEEN bedden</strong></span>
+          </li>
+        </ul>
+
+        <h4 class="mt-xl">Omgeving</h4>
+        <ul class="checklist">
+          <li *ngFor="let item of rentalSurroundings" class="checklist__item">
+            <svg class="checklist__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>{{ item.text }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Calendar Card -->
+      <div class="rental__card rental__card--calendar">
+        <h3>Beschikbaarheid</h3>
+        <p>Bekijk onze kalender voor beschikbare data:</p>
+        <div class="calendar-embed">
+          <iframe
+            src="https://calendar.google.com/calendar/embed?src=contact%40chiroelzestraat.be&ctz=Europe%2FBrussels"
+            frameborder="0"
+            scrolling="yes"
+            title="Verhuur kalender">
+          </iframe>
+        </div>
+        <a href="https://www.facebook.com/media/set/?set=a.1568880913166762.1073741846.234251636629703&type=3"
+           class="btn btn--secondary mt-lg"
+           target="_blank"
+           rel="noopener">
+          Bekijk foto's van het lokaal
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section id="section-cijfers" class="section bg-white">
+  <div class="container">
+    <h2 class="section__heading">Cijfers</h2>
+
+    <div class="stats">
+      <div *ngFor="let stat of stats" class="stat-card">
+        <div class="stat-card__value">{{ stat.value }}</div>
+        <div class="stat-card__label">{{ stat.label }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Program Section -->
+<section id="section-tprogram" class="section bg-white">
+  <div class="container">
+    <h2 class="section__heading">Programma</h2>
+    <p class="section__lead">
+      Download hier onze programma's en het kampboekje voor alle informatie over onze activiteiten.
+    </p>
+
+    <div class="program">
+      <div *ngFor="let program of programs" class="program-card">
+        <div class="program-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <h3 class="program-card__title">{{ program.title }}</h3>
+        <a [href]="program.url" class="btn btn--primary" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Download PDF
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section id="section-faq" class="section bg-light">
+  <div class="container">
+    <h2 class="section__heading">Veelgestelde Vragen</h2>
+    <p class="section__lead">
+      Vind antwoorden op de meest gestelde vragen over Chirojongens Elzestraat.
+    </p>
+
+    <div class="faq">
+      <div *ngFor="let faq of faqs; let i = index" class="faq-item" [class.faq-item--expanded]="faq.expanded">
+        <button class="faq-item__question" (click)="toggleFAQ(i)">
+          <span>{{ faq.question }}</span>
+          <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-item__answer" [innerHTML]="faq.answer"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Preview Section -->
+<section id="section-contact" class="section bg-white">
+  <div class="container">
+    <h2 class="section__heading">Contact</h2>
+
+    <div class="contact-preview">
+      <div class="contact-preview__emergency">
+        <h3>Contact in noodgevallen</h3>
+        <div class="contact-list">
+          <div class="contact-item">
+            <span class="contact-item__name">Lowie Willems:</span>
+            <a href="tel:0468227664" class="contact-item__phone">0468 22 76 64</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item__name">Jef Souvereyns:</span>
+            <a href="tel:0472796887" class="contact-item__phone">0472 79 68 87</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-preview__info">
+        <h3>Algemeen contact</h3>
+        <p>Voor niet-dringende vragen kun je contact opnemen via:</p>
+        <a href="mailto:contact@chiroelzestraat.be" class="contact-email">
+          contact@chiroelzestraat.be
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__content">
+      <div class="footer__info">
+        <p class="footer__copyright">
+          © {{ currentYear }} Chirojongens Elzestraat. Alle rechten voorbehouden.
+        </p>
+      </div>
+
+      <div class="footer__social">
+        <a href="https://www.facebook.com/Chirojongens-Elzestraat-234251636629703/" class="footer__social-link" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+

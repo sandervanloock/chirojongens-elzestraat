@@ -1,0 +1,424 @@
+@use './variables' as *;
+
+// ============================================
+// RESPONSIVE BREAKPOINTS
+// ============================================
+
+@mixin mobile-only {
+  @media (max-width: $breakpoint-md - 1) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $breakpoint-md) and (max-width: $breakpoint-lg - 1) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin desktop-xl {
+  @media (min-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+// Custom breakpoint
+@mixin respond-to($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+// ============================================
+// FLEXBOX UTILITIES
+// ============================================
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-column-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+// ============================================
+// CONTAINER
+// ============================================
+
+@mixin container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+
+  @include mobile-only {
+    padding: 0 $spacing-md;
+  }
+}
+
+// ============================================
+// SECTION UTILITIES
+// ============================================
+
+@mixin section-padding {
+  padding: $spacing-5xl 0;
+
+  @include mobile-only {
+    padding: $spacing-4xl 0;
+  }
+}
+
+@mixin section-heading {
+  font-family: $font-heading;
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-bold;
+  color: $chiro-navy;
+  text-align: center;
+  margin-bottom: $spacing-3xl;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  @include mobile-only {
+    font-size: $font-size-3xl;
+    margin-bottom: $spacing-2xl;
+  }
+}
+
+// ============================================
+// CARD COMPONENTS
+// ============================================
+
+@mixin card-base {
+  background: $white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-xl;
+  box-shadow: $shadow-md;
+  transition: all $transition-base;
+}
+
+@mixin card-hover {
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-xl;
+  }
+}
+
+@mixin card-interactive {
+  @include card-base;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $shadow-2xl;
+  }
+
+  &:active {
+    transform: translateY(-2px);
+  }
+}
+
+// ============================================
+// TEXT UTILITIES
+// ============================================
+
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-clamp($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// ============================================
+// BUTTONS
+// ============================================
+
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-md $spacing-xl;
+  font-family: $font-primary;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  line-height: 1;
+  text-decoration: none;
+  border: none;
+  border-radius: $border-radius-md;
+  cursor: pointer;
+  transition: all $transition-fast;
+  white-space: nowrap;
+
+  &:focus-visible {
+    outline: 2px solid $chiro-blue;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background-color: $chiro-red;
+  color: $white;
+
+  &:hover:not(:disabled) {
+    background-color: darken($chiro-red, 10%);
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background-color: transparent;
+  color: $chiro-red;
+  border: 2px solid $chiro-red;
+
+  &:hover:not(:disabled) {
+    background-color: $chiro-red;
+    color: $white;
+  }
+}
+
+// ============================================
+// ANIMATIONS
+// ============================================
+
+@mixin fade-in($duration: 0.5s, $delay: 0s) {
+  animation: fadeIn $duration ease-in $delay both;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@mixin slide-up($duration: 0.6s, $delay: 0s) {
+  animation: slideUp $duration ease-out $delay both;
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@mixin slide-in-left($duration: 0.6s, $delay: 0s) {
+  animation: slideInLeft $duration ease-out $delay both;
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+@mixin slide-in-right($duration: 0.6s, $delay: 0s) {
+  animation: slideInRight $duration ease-out $delay both;
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+@mixin scale-in($duration: 0.4s, $delay: 0s) {
+  animation: scaleIn $duration ease-out $delay both;
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+// ============================================
+// GRADIENTS
+// ============================================
+
+@mixin gradient-red {
+  background: linear-gradient(135deg, $chiro-red 0%, darken($chiro-red, 10%) 100%);
+}
+
+@mixin gradient-blue {
+  background: linear-gradient(135deg, $chiro-blue 0%, darken($chiro-blue, 10%) 100%);
+}
+
+@mixin gradient-overlay($color: $black, $opacity: 0.5) {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba($color, $opacity);
+    z-index: 1;
+  }
+}
+
+// ============================================
+// ACCESSIBILITY
+// ============================================
+
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@mixin focus-visible {
+  &:focus-visible {
+    outline: 2px solid $chiro-blue;
+    outline-offset: 2px;
+    border-radius: $border-radius-sm;
+  }
+}
+
+@mixin focus-ring($color: $chiro-blue, $offset: 2px) {
+  &:focus-visible {
+    outline: 2px solid $color;
+    outline-offset: $offset;
+  }
+}
+
+// ============================================
+// FORM ELEMENTS
+// ============================================
+
+@mixin input-base {
+  width: 100%;
+  padding: $spacing-md;
+  font-family: $font-primary;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  color: $dark-gray;
+  background-color: $white;
+  border: $border-width solid $medium-gray;
+  border-radius: $border-radius-md;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $chiro-blue;
+    box-shadow: 0 0 0 3px rgba($chiro-blue, 0.1);
+  }
+
+  &::placeholder {
+    color: lighten($medium-gray, 10%);
+  }
+
+  &:disabled {
+    background-color: $light-bg;
+    cursor: not-allowed;
+  }
+}
+
+// ============================================
+// UTILITY MIXINS
+// ============================================
+
+@mixin clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    padding-top: calc(($height / $width) * 100%);
+  }
+
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Smooth scroll
+@mixin smooth-scroll {
+  scroll-behavior: smooth;
+}

@@ -127,18 +127,16 @@
           <span class="rental-hero__price-label">per weekend</span>
         </div>
         <div class="rental-hero__actions">
-          <a class="btn btn--primary btn--large"
-             href="/assets/Huurcontract Chirojongens Elzestraat 2024-2025.pdf"
-             rel="noopener"
-             target="_blank">
+          <button (click)="openPdfPreview('/assets/Huurcontract Chirojongens Elzestraat 2024-2025.pdf', 'Huurcontract')"
+                  class="btn btn--primary btn--large">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
               <polyline points="14 2 14 8 20 8"></polyline>
               <line x1="16" x2="8" y1="13" y2="13"></line>
               <line x1="16" x2="8" y1="17" y2="17"></line>
             </svg>
-            Download Huurcontract
-          </a>
+            Bekijk Huurcontract
+          </button>
           <a (click)="scrollToSection('#rental-gallery'); $event.preventDefault()" class="btn btn--secondary"
              href="#rental-gallery">
             Bekijk foto's
@@ -299,14 +297,13 @@
           </svg>
         </div>
         <h3 class="program-card__title">{{ program.title }}</h3>
-        <a [href]="program.url" class="btn btn--primary" target="_blank" rel="noopener">
+        <button (click)="openPdfPreview(program.url, program.title)" class="btn btn--primary">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
+            <path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
           </svg>
-          Download PDF
-        </a>
+          Bekijk PDF
+        </button>
       </div>
     </div>
   </div>
@@ -386,3 +383,31 @@
   </div>
 </footer>
 
+<!-- PDF Preview Modal -->
+<div (click)="closePdfPreview()" [class.pdf-modal--open]="pdfPreviewOpen" class="pdf-modal">
+  <div (click)="$event.stopPropagation()" class="pdf-modal__content">
+    <div class="pdf-modal__header">
+      <h3 class="pdf-modal__title">{{ pdfPreviewTitle }}</h3>
+      <div class="pdf-modal__actions">
+        <a [href]="pdfPreviewUrl" class="btn btn--secondary btn--sm" download rel="noopener" target="_blank">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" x2="12" y1="15" y2="3"></line>
+          </svg>
+          Download
+        </a>
+        <button (click)="closePdfPreview()" aria-label="Sluiten" class="pdf-modal__close">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <line x1="18" x2="6" y1="6" y2="18"></line>
+            <line x1="6" x2="18" y1="6" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="pdf-modal__body">
+      <iframe *ngIf="pdfPreviewOpen && pdfPreviewSafeUrl" [src]="pdfPreviewSafeUrl" class="pdf-modal__iframe"
+              title="PDF Preview"></iframe>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import {Component, HostListener, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {CommonModule, DOCUMENT, isPlatformBrowser} from '@angular/common';
-import {Meta, Title} from '@angular/platform-browser';
+import {DomSanitizer, Meta, SafeResourceUrl, Title} from '@angular/platform-browser';
 
 interface Group {
   name: string;
@@ -64,6 +64,10 @@ export class App implements OnInit {
   mobileMenuOpen = false;
   rentalGalleryOpen = false;
   currentRentalImage = 0;
+  pdfPreviewOpen = false;
+  pdfPreviewUrl = '';
+  pdfPreviewSafeUrl: SafeResourceUrl | null = null;
+  pdfPreviewTitle = '';
   heroImages: HeroImage[] = [
     { src: '/assets/images/hero/outdoor_adventure.jpeg', alt: 'Avontuurlijke uitstap met prachtig uitzicht' },
     {src: '/assets/images/hero/flour_face_hero.jpeg', alt: 'Plezier maken tijdens spelletjes op kamp'},
@@ -142,6 +146,7 @@ export class App implements OnInit {
   constructor(
     private titleService: Title,
     private metaService: Meta,
+    private sanitizer: DomSanitizer,
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: object
   ) {
@@ -415,6 +420,20 @@ export class App implements OnInit {
     this.currentRentalImage = this.currentRentalImage === 0
       ? this.rentalImages.length - 1
       : this.currentRentalImage - 1;
+  }
+
+  openPdfPreview(url: string, title: string): void {
+    this.pdfPreviewUrl = url;
+    this.pdfPreviewSafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    this.pdfPreviewTitle = title;
+    this.pdfPreviewOpen = true;
+  }
+
+  closePdfPreview(): void {
+    this.pdfPreviewOpen = false;
+    this.pdfPreviewUrl = '';
+    this.pdfPreviewSafeUrl = null;
+    this.pdfPreviewTitle = '';
   }
 
   @HostListener('window:keydown', ['$event'])

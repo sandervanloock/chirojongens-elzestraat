@@ -1017,6 +1017,113 @@
 }
 
 // ==================================
+// PDF PREVIEW MODAL
+// ==================================
+
+.pdf-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba($black, 0.9);
+  z-index: $z-index-modal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-lg;
+  opacity: 0;
+  visibility: hidden;
+  transition: all $transition-base;
+
+  &--open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__content {
+    background: $white;
+    border-radius: $border-radius-lg;
+    width: 100%;
+    max-width: 1000px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: $shadow-2xl;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-md $spacing-lg;
+    border-bottom: 1px solid $light-bg;
+    background: $light-bg;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $font-size-lg;
+    color: $chiro-navy;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    margin-right: $spacing-md;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    color: $medium-gray;
+    cursor: pointer;
+    padding: $spacing-xs;
+    border-radius: $border-radius-sm;
+    transition: all $transition-fast;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover {
+      color: $chiro-red;
+      background: rgba($chiro-red, 0.1);
+    }
+  }
+
+  &__body {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  &__iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}
+
+.btn--sm {
+  padding: $spacing-xs $spacing-md;
+  font-size: $font-size-sm;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    margin-right: $spacing-xs;
+  }
+}
+
+// ==================================
 // PROGRAM SECTION
 // ==================================
 

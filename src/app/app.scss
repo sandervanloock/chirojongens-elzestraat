@@ -613,51 +613,33 @@
 // RENTAL SECTION
 // ==================================
 
-.rental {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: $spacing-2xl;
-  margin-top: $spacing-3xl;
+// Hero banner with price and CTA
+.rental-hero {
+  background: linear-gradient(135deg, $chiro-red 0%, darken($chiro-red, 15%) 100%);
+  border-radius: $border-radius-xl;
+  padding: $spacing-2xl $spacing-3xl;
+  margin-bottom: $spacing-3xl;
+  text-align: center;
 
   @include mobile-only {
-    grid-template-columns: 1fr;
+    padding: $spacing-xl $spacing-lg;
   }
 
-  &__card {
-    @include card-base;
-    @include slide-up;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-xl;
 
-    h3 {
-      font-family: $font-heading;
-      font-size: $font-size-2xl;
-      color: $chiro-navy;
-      margin-bottom: $spacing-lg;
+    @include tablet-up {
+      flex-direction: row;
+      justify-content: center;
+      gap: $spacing-3xl;
     }
-
-    h4 {
-      font-family: $font-heading;
-      font-size: $font-size-xl;
-      color: $chiro-navy;
-      margin-bottom: $spacing-md;
-    }
-
-    p {
-      color: $medium-gray;
-      line-height: $line-height-relaxed;
-      margin-bottom: $spacing-md;
-    }
-  }
-
-  &__card--calendar {
-    grid-column: 1 / -1;
   }
 
   &__price {
-    text-align: center;
-    padding: $spacing-2xl;
-    background: linear-gradient(135deg, $chiro-red 0%, darken($chiro-red, 10%) 100%);
-    border-radius: $border-radius-lg;
-    margin-bottom: $spacing-xl;
+    color: $white;
   }
 
   &__price-amount {
@@ -665,47 +647,141 @@
     font-family: $font-heading;
     font-size: $font-size-6xl;
     font-weight: $font-weight-extrabold;
-    color: $white;
     line-height: 1;
-    margin-bottom: $spacing-sm;
+
+    @include mobile-only {
+      font-size: $font-size-5xl;
+    }
   }
 
   &__price-label {
     font-size: $font-size-lg;
-    color: $white;
-    font-weight: $font-weight-semibold;
+    opacity: 0.9;
   }
 
-  &__details {
-    background: $light-bg;
-    padding: $spacing-lg;
-    border-radius: $border-radius-md;
-    border-left: 4px solid $chiro-blue;
-    margin-bottom: $spacing-lg;
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    justify-content: center;
 
-    p {
-      margin-bottom: $spacing-sm;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-
-      strong {
-        color: $chiro-navy;
-      }
-    }
-  }
-
-  &__location {
-    text-align: center;
-    padding-top: $spacing-lg;
-    border-top: 2px solid $light-bg;
-
-    p {
+    .btn--large {
+      padding: $spacing-lg $spacing-2xl;
       font-size: $font-size-lg;
-      color: $dark-gray;
-      font-weight: $font-weight-medium;
+
+      svg {
+        width: 24px;
+        height: 24px;
+        margin-right: $spacing-sm;
+      }
     }
+
+    .btn--secondary {
+      background: rgba($white, 0.15);
+      border-color: $white;
+      color: $white;
+
+      &:hover {
+        background: $white;
+        color: $chiro-red;
+      }
+    }
+  }
+}
+
+// Main content grid layout
+.rental-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-2xl;
+  margin-bottom: $spacing-3xl;
+
+  @include tablet-up {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xl;
+  }
+
+  &__calendar {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.rental__card {
+  @include card-base;
+  @include slide-up;
+  height: fit-content;
+
+  h3 {
+    font-family: $font-heading;
+    font-size: $font-size-xl;
+    color: $chiro-navy;
+    margin-bottom: $spacing-md;
+  }
+
+  h4 {
+    font-family: $font-heading;
+    font-size: $font-size-lg;
+    color: $chiro-navy;
+    margin-bottom: $spacing-sm;
+  }
+
+  p {
+    color: $medium-gray;
+    line-height: $line-height-relaxed;
+    margin-bottom: $spacing-sm;
+  }
+
+  &--calendar-compact {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .calendar-embed--compact {
+      flex: 1;
+      min-height: 300px;
+
+      @include tablet-up {
+        min-height: 400px;
+      }
+    }
+  }
+}
+
+.rental__details {
+  background: $light-bg;
+  padding: $spacing-md;
+  border-radius: $border-radius-md;
+  border-left: 4px solid $chiro-blue;
+  margin-bottom: $spacing-md;
+
+  p {
+    margin-bottom: $spacing-xs;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    strong {
+      color: $chiro-navy;
+    }
+  }
+}
+
+.rental__location {
+  text-align: center;
+  padding-top: $spacing-md;
+  border-top: 2px solid $light-bg;
+
+  p {
+    font-size: $font-size-base;
+    color: $dark-gray;
+    font-weight: $font-weight-medium;
   }
 }
 
@@ -717,10 +793,10 @@
   &__item {
     display: flex;
     align-items: flex-start;
-    gap: $spacing-md;
-    padding: $spacing-sm 0;
+    gap: $spacing-sm;
+    padding: $spacing-xs 0;
     color: $dark-gray;
-    font-size: $font-size-base;
+    font-size: $font-size-sm;
     line-height: $line-height-relaxed;
 
     &--negative {
@@ -733,8 +809,8 @@
   }
 
   &__icon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     flex-shrink: 0;
     color: $chiro-blue;
     stroke-width: 3;
@@ -744,11 +820,17 @@
 .calendar-embed {
   position: relative;
   width: 100%;
-  padding-bottom: 75%; // 4:3 aspect ratio
+  padding-bottom: 56.25%; // 16:9 aspect ratio (more compact)
   background: $light-bg;
-  border-radius: $border-radius-lg;
+  border-radius: $border-radius-md;
   overflow: hidden;
-  margin-top: $spacing-lg;
+  margin-top: $spacing-md;
+
+  &--compact {
+    padding-bottom: 0;
+    height: 100%;
+    min-height: 300px;
+  }
 
   iframe {
     position: absolute;
@@ -758,6 +840,180 @@
     height: 100%;
     border: none;
   }
+}
+
+// Photo Gallery
+.rental-gallery {
+  margin-top: $spacing-3xl;
+  padding-top: $spacing-3xl;
+  border-top: 2px solid $light-bg;
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $font-size-2xl;
+    color: $chiro-navy;
+    text-align: center;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: $spacing-md;
+
+    @include tablet-up {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+  }
+
+  &__item {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background: $light-bg;
+    transition: all $transition-base;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: $shadow-lg;
+
+      .rental-gallery__thumb {
+        transform: scale(1.1);
+      }
+    }
+
+    &:focus-visible {
+      outline: 3px solid $chiro-blue;
+      outline-offset: 3px;
+    }
+  }
+
+  &__thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform $transition-base;
+  }
+}
+
+// Lightbox
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba($black, 0.95);
+  z-index: $z-index-modal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all $transition-base;
+
+  &--open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: $border-radius-md;
+  }
+
+  &__close {
+    position: absolute;
+    top: -$spacing-3xl;
+    right: 0;
+    background: none;
+    border: none;
+    color: $white;
+    cursor: pointer;
+    padding: $spacing-sm;
+    transition: all $transition-fast;
+
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    &:hover {
+      transform: scale(1.2);
+      color: $chiro-red;
+    }
+  }
+
+  &__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba($white, 0.1);
+    border: 2px solid rgba($white, 0.3);
+    color: $white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover {
+      background: rgba($white, 0.2);
+      border-color: $white;
+    }
+
+    &--prev {
+      left: -$spacing-4xl;
+
+      @include mobile-only {
+        left: $spacing-sm;
+      }
+    }
+
+    &--next {
+      right: -$spacing-4xl;
+
+      @include mobile-only {
+        right: $spacing-sm;
+      }
+    }
+  }
+
+  &__counter {
+    position: absolute;
+    bottom: -$spacing-2xl;
+    left: 50%;
+    transform: translateX(-50%);
+    color: $white;
+    font-size: $font-size-sm;
+    opacity: 0.7;
+  }
+}
+
+.text-sm {
+  font-size: $font-size-sm !important;
 }
 
 // ==================================

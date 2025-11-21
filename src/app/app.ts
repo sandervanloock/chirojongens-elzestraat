@@ -39,6 +39,12 @@ interface GalleryImage {
   category: string;
 }
 
+interface RentalImage {
+  src: string;
+  thumbSrc: string;
+  alt: string;
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -50,6 +56,49 @@ export class App {
   currentYear = new Date().getFullYear();
   currentHeroImage = 0;
   mobileMenuOpen = false;
+  rentalGalleryOpen = false;
+  currentRentalImage = 0;
+
+  rentalImages: RentalImage[] = [
+    {
+      src: '/assets/images/verhuur/IMG_6925.jpg',
+      thumbSrc: '/assets/images/verhuur/IMG_6925-min.jpg',
+      alt: 'Lokaal overzicht'
+    },
+    {
+      src: '/assets/images/verhuur/IMG_6926.jpg',
+      thumbSrc: '/assets/images/verhuur/IMG_6926-min.jpg',
+      alt: 'Grote zaal'
+    },
+    {src: '/assets/images/verhuur/IMG_6928.jpg', thumbSrc: '/assets/images/verhuur/IMG_6928-min.jpg', alt: 'Keuken'},
+    {
+      src: '/assets/images/verhuur/IMG_6929.jpg',
+      thumbSrc: '/assets/images/verhuur/IMG_6929-min.jpg',
+      alt: 'Vergaderzaal'
+    },
+    {src: '/assets/images/verhuur/IMG_6930.jpg', thumbSrc: '/assets/images/verhuur/IMG_6930-min.jpg', alt: 'Sanitair'},
+    {
+      src: '/assets/images/verhuur/IMG_6931.jpg',
+      thumbSrc: '/assets/images/verhuur/IMG_6931-min.jpg',
+      alt: 'Extra ruimte'
+    },
+    {src: '/assets/images/verhuur/IMG_6932.jpg', thumbSrc: '/assets/images/verhuur/IMG_6932-min.jpg', alt: 'Tuin'},
+    {src: '/assets/images/verhuur/IMG_6933.jpg', thumbSrc: '/assets/images/verhuur/IMG_6933-min.jpg', alt: 'Speeltuig'},
+    {
+      src: '/assets/images/verhuur/IMG_6934.jpg',
+      thumbSrc: '/assets/images/verhuur/IMG_6934-min.jpg',
+      alt: 'Buitenzicht'
+    },
+    {src: '/assets/images/verhuur/IMG_6935.jpg', thumbSrc: '/assets/images/verhuur/IMG_6935-min.jpg', alt: 'Parking'},
+    {src: '/assets/images/verhuur/IMG_6936.jpg', thumbSrc: '/assets/images/verhuur/IMG_6936-min.jpg', alt: 'Omgeving'},
+    {src: '/assets/images/verhuur/IMG_6937.jpg', thumbSrc: '/assets/images/verhuur/IMG_6937-min.jpg', alt: 'Toegang'},
+    {src: '/assets/images/verhuur/IMG_6938.jpg', thumbSrc: '/assets/images/verhuur/IMG_6938-min.jpg', alt: 'Ingang'},
+    {
+      src: '/assets/images/verhuur/IMG_6939.jpg',
+      thumbSrc: '/assets/images/verhuur/IMG_6939-min.jpg',
+      alt: 'Vooraanzicht'
+    }
+  ];
 
   heroImages: HeroImage[] = [
     { src: '/assets/images/hero/golden_hour_sunset.jpeg', alt: 'Chiroleden bij zonsondergang tijdens activiteit' },
@@ -121,8 +170,8 @@ export class App {
   ];
 
   programs: ProgramItem[] = [
-    {title: '\'t Program september - december 2025', url: '/assets/Program-Sep-Dec.2025.pdf'},
-    {title: 'Kampboekje 2025', url: '/assets/kampboekje2025.pdf'}
+    {title: '\'t Program september - december 2025', url: '/assets/tprogram/Program-Sep-Dec.2025.pdf'},
+    {title: 'Kampboekje 2025', url: '/assets/tprogram/kampboekje2025.pdf'}
   ];
 
   faqs: FAQItem[] = [
@@ -186,6 +235,25 @@ export class App {
 
   closeMobileMenu(): void {
     this.mobileMenuOpen = false;
+  }
+
+  openRentalGallery(index: number): void {
+    this.currentRentalImage = index;
+    this.rentalGalleryOpen = true;
+  }
+
+  closeRentalGallery(): void {
+    this.rentalGalleryOpen = false;
+  }
+
+  nextRentalImage(): void {
+    this.currentRentalImage = (this.currentRentalImage + 1) % this.rentalImages.length;
+  }
+
+  prevRentalImage(): void {
+    this.currentRentalImage = this.currentRentalImage === 0
+      ? this.rentalImages.length - 1
+      : this.currentRentalImage - 1;
   }
 
   @HostListener('window:keydown', ['$event'])

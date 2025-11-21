@@ -1,0 +1,13 @@
+# Robots.txt for Chirojongens Elzestraat
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://chirojongens.chiroelzestraat.be/sitemap.xml
+
+# Disallow admin or private directories (if any)
+Disallow: /admin/
+Disallow: /private/
+
+# Allow all assets
+Allow: /assets/

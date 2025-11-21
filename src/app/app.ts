@@ -1,5 +1,6 @@
-import {Component, HostListener} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {Component, HostListener, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {CommonModule, DOCUMENT, isPlatformBrowser} from '@angular/common';
+import {Meta, Title} from '@angular/platform-browser';
 
 interface Group {
   name: string;
@@ -45,6 +46,11 @@ interface RentalImage {
   alt: string;
 }
 
+interface SectionMeta {
+  title: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -52,12 +58,45 @@ interface RentalImage {
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
+export class App implements OnInit {
   currentYear = new Date().getFullYear();
   currentHeroImage = 0;
   mobileMenuOpen = false;
   rentalGalleryOpen = false;
   currentRentalImage = 0;
+  heroImages: HeroImage[] = [
+    { src: '/assets/images/hero/outdoor_adventure.jpeg', alt: 'Avontuurlijke uitstap met prachtig uitzicht' },
+    {src: '/assets/images/hero/flour_face_hero.jpeg', alt: 'Plezier maken tijdens spelletjes op kamp'},
+    {src: '/assets/images/hero/golden_hour_sunset.jpeg', alt: 'Chiroleden bij zonsondergang tijdens activiteit'},
+  ];
+  private currentSection = 'home';
+  private baseUrl = 'https://chirojongens.chiroelzestraat.be';
+  private sectionMeta: Record<string, SectionMeta> = {
+    'home': {
+      title: 'Chirojongens Elzestraat | Jeugdbeweging Sint-Katelijne-Waver',
+      description: 'Chirojongens Elzestraat - Jeugdbeweging voor jongens van 6 tot 18 jaar in Sint-Katelijne-Waver. Elke zondag plezier en avontuur.'
+    },
+    'groepen': {
+      title: 'Groepen | Chirojongens Elzestraat',
+      description: 'Ontdek onze leeftijdsgroepen: Speelclub, Rakkers, Toppers, Kerels en Aspiranten. Voor jongens van 6 tot 18 jaar.'
+    },
+    'verhuur': {
+      title: 'Verhuur Lokalen | Chirojongens Elzestraat',
+      description: 'Huur onze lokalen in Sint-Katelijne-Waver. Volledig uitgeruste keuken, grote zaal en tuin. €250 per weekend.'
+    },
+    'tprogram': {
+      title: 'Programma | Chirojongens Elzestraat',
+      description: 'Download het programma en kampboekje van Chirojongens Elzestraat. Bekijk alle geplande activiteiten.'
+    },
+    'faq': {
+      title: 'Veelgestelde Vragen | Chirojongens Elzestraat',
+      description: 'Antwoorden op veelgestelde vragen over lidmaatschap, activiteiten en beleid van Chirojongens Elzestraat.'
+    },
+    'contact': {
+      title: 'Contact | Chirojongens Elzestraat',
+      description: 'Neem contact op met Chirojongens Elzestraat. Vind noodcontacten en algemene contactinformatie.'
+    }
+  };
 
   rentalImages: RentalImage[] = [
     {
@@ -100,11 +139,13 @@ export class App {
     }
   ];
 
-  heroImages: HeroImage[] = [
-    { src: '/assets/images/hero/golden_hour_sunset.jpeg', alt: 'Chiroleden bij zonsondergang tijdens activiteit' },
-    { src: '/assets/images/hero/outdoor_adventure.jpeg', alt: 'Avontuurlijke uitstap met prachtig uitzicht' },
-    { src: '/assets/images/hero/flour_face_hero.jpeg', alt: 'Plezier maken tijdens spelletjes op kamp' }
-  ];
+  constructor(
+    private titleService: Title,
+    private metaService: Meta,
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {
+  }
 
   navItems: NavItem[] = [
     { label: 'Home', href: '#section-home' },
@@ -201,6 +242,126 @@ export class App {
       expanded: false
     }
   ];
+
+  ngOnInit(): void {
+    this.addStructuredData();
+    this.addCanonicalTag();
+    this.setupScrollObserver();
+  }
+
+  private addStructuredData(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    // Organization Schema
+    const organizationSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      'name': 'Chirojongens Elzestraat',
+      'url': this.baseUrl,
+      'logo': `${this.baseUrl}/assets/images/logo.png`,
+      'contactPoint': {
+        '@type': 'ContactPoint',
+        'email': 'contact@chiroelzestraat.be',
+        'contactType': 'customer service'
+      },
+      'sameAs': [
+        'https://www.facebook.com/Chirojongens-Elzestraat-234251636629703/'
+      ]
+    };
+
+    // LocalBusiness Schema
+    const localBusinessSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      'name': 'Chirojongens Elzestraat - Verhuur',
+      'description': 'Verhuur van lokalen voor jeugdbewegingen en groepsactiviteiten',
+      'address': {
+        '@type': 'PostalAddress',
+        'streetAddress': 'Clemenceaustraat 111E',
+        'addressLocality': 'Sint-Katelijne-Waver',
+        'postalCode': '2860',
+        'addressCountry': 'BE'
+      },
+      'priceRange': '€250 per weekend',
+      'email': 'contact@chiroelzestraat.be'
+    };
+
+    // FAQPage Schema
+    const faqSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': this.faqs.map(faq => ({
+        '@type': 'Question',
+        'name': faq.question,
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': faq.answer.replace(/<[^>]*>/g, '')
+        }
+      }))
+    };
+
+    this.addJsonLd(organizationSchema, 'organization-schema');
+    this.addJsonLd(localBusinessSchema, 'local-business-schema');
+    this.addJsonLd(faqSchema, 'faq-schema');
+  }
+
+  private addJsonLd(schema: object, id: string): void {
+    const existing = this.document.getElementById(id);
+    if (existing) existing.remove();
+
+    const script = this.document.createElement('script');
+    script.id = id;
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(schema);
+    this.document.head.appendChild(script);
+  }
+
+  private addCanonicalTag(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    let canonical = this.document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+    if (!canonical) {
+      canonical = this.document.createElement('link');
+      canonical.rel = 'canonical';
+      this.document.head.appendChild(canonical);
+    }
+    canonical.href = this.baseUrl;
+  }
+
+  private setupScrollObserver(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const sections = ['home', 'groepen', 'verhuur', 'tprogram', 'faq', 'contact'];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.id.replace('section-', '');
+            if (sectionId !== this.currentSection && this.sectionMeta[sectionId]) {
+              this.currentSection = sectionId;
+              this.updateMetaTags(sectionId);
+            }
+          }
+        });
+      },
+      {threshold: 0.3}
+    );
+
+    sections.forEach(section => {
+      const element = this.document.getElementById(`section-${section}`);
+      if (element) observer.observe(element);
+    });
+  }
+
+  private updateMetaTags(section: string): void {
+    const meta = this.sectionMeta[section];
+    if (!meta) return;
+
+    this.titleService.setTitle(meta.title);
+    this.metaService.updateTag({name: 'description', content: meta.description});
+    this.metaService.updateTag({property: 'og:title', content: meta.title});
+    this.metaService.updateTag({property: 'og:description', content: meta.description});
+  }
 
   toggleFAQ(index: number): void {
     this.faqs[index].expanded = !this.faqs[index].expanded;

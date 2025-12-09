@@ -37,13 +37,15 @@
 <section id="section-home" class="hero">
   <div class="hero__carousel">
     <div class="hero__carousel-track" [style.transform]="'translateX(-' + (currentHeroImage * 100) + '%)'">
-      <div *ngFor="let image of heroImages" class="hero__carousel-slide">
+      <div *ngFor="let image of heroImages; let i = index" class="hero__carousel-slide">
         <img
           [src]="image.src"
           [alt]="image.alt"
           class="hero__image"
-          loading="eager"
-          fetchpriority="high">
+          [attr.fetchpriority]="i === 0 ? 'high' : 'low'"
+          [attr.loading]="i === 0 ? 'eager' : 'lazy'"
+          decoding="async"
+          sizes="100vw">
       </div>
     </div>
     <button class="hero__carousel-btn hero__carousel-btn--prev" (click)="prevHeroImage()" aria-label="Vorige afbeelding">
@@ -232,7 +234,8 @@
                [src]="image.thumbSrc"
                class="rental-gallery__thumb"
                decoding="async"
-               loading="lazy">
+               loading="lazy"
+               sizes="(max-width: 768px) 50vw, 25vw">
         </button>
       </div>
     </div>

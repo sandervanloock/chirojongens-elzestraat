@@ -45,7 +45,7 @@ $spacing-5xl: 6rem;     // 96px
 
 // Font Families (modernizing from Raleway to Inter/Poppins)
 $font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-$font-heading: 'Poppins', sans-serif;
+$font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
 // Font Sizes
 $font-size-xs: 0.75rem;    // 12px

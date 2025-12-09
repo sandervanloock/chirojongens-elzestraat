@@ -1,0 +1,96 @@
+{
+  "hero": [
+    {
+      "src": "/assets/images/hero/flap.webp",
+      "alt": "Chiro activiteit - Flap"
+    },
+    {
+      "src": "/assets/images/hero/flap2.webp",
+      "alt": "Chiro activiteit - Flap2"
+    },
+    {
+      "src": "/assets/images/hero/flour_face_hero.jpeg",
+      "alt": "Chiro activiteit - Flour Face Hero"
+    },
+    {
+      "src": "/assets/images/hero/golden_hour_sunset.jpeg",
+      "alt": "Chiro activiteit - Golden Hour Sunset"
+    },
+    {
+      "src": "/assets/images/hero/outdoor_adventure.jpeg",
+      "alt": "Chiro activiteit - Outdoor Adventure"
+    }
+  ],
+  "verhuur": [
+    {
+      "src": "/assets/images/verhuur/IMG_6925.jpg",
+      "thumbSrc": "/assets/images/verhuur/IMG_6925-min.jpg",
+      "alt": "Lokaal"
+    },
+    {
+      "src": "/assets/images/verhuur/IMG_6926.jpg",
+      "thumbSrc": "/assets/images/verhuur/IMG_6926-min.jpg",
+      "alt": "Lokaal"
+    },
+    {
+      "src": "/assets/images/verhuur/IMG_6928.jpg",
+      "thumbSrc": "/assets/images/verhuur/IMG_6928-min.jpg",
+      "alt": "Lokaal"
+    },
+    {
+      "src": "/assets/images/verhuur/IMG_6929.jpg",
+      "thumbSrc": "/assets/images/verhuur/IMG_6929-min.jpg",
+      "alt": "Lokaal"
+    },
+    {
+      "src": "/assets/images/verhuur/IMG_6930.jpg",
+      "thumbSrc": "/assets/images/verhuur/IMG_6930-min.jpg",
+      "alt": "Lokaal"
+    },
+    {
+      "src": "/assets/images/verhuur/IMG_6931.jpg",
+      "thumbSrc": "/assets/images/verhuur/IMG_6931-min.jpg",
+      "alt": "Lokaal"
+    },
+    {
+      "src": "/assets/images/verhuur/IMG_6932.jpg",
+      "thumbSrc": "/assets/images/verhuur/IMG_6932-min.jpg",
+      "alt": "Lokaal"
+    },
+    {
+      "src": "/assets/images/verhuur/IMG_6933.jpg",
+      "thumbSrc": "/assets/images/verhuur/IMG_6933-min.jpg",
+      "alt": "Lokaal"
+    },
+    {
+      "src": "/assets/images/verhuur/IMG_6934.jpg",
+      "thumbSrc": "/assets/images/verhuur/IMG_6934-min.jpg",
+      "alt": "Lokaal"
+    },
+    {
+      "src": "/assets/images/verhuur/IMG_6935.jpg",
+      "thumbSrc": "/assets/images/verhuur/IMG_6935-min.jpg",
+      "alt": "Lokaal"
+    },
+    {
+      "src": "/assets/images/verhuur/IMG_6936.jpg",
+      "thumbSrc": "/assets/images/verhuur/IMG_6936-min.jpg",
+      "alt": "Lokaal"
+    },
+    {
+      "src": "/assets/images/verhuur/IMG_6937.jpg",
+      "thumbSrc": "/assets/images/verhuur/IMG_6937-min.jpg",
+      "alt": "Lokaal"
+    },
+    {
+      "src": "/assets/images/verhuur/IMG_6938.jpg",
+      "thumbSrc": "/assets/images/verhuur/IMG_6938-min.jpg",
+      "alt": "Lokaal"
+    },
+    {
+      "src": "/assets/images/verhuur/IMG_6939.jpg",
+      "thumbSrc": "/assets/images/verhuur/IMG_6939-min.jpg",
+      "alt": "Lokaal"
+    }
+  ]
+}

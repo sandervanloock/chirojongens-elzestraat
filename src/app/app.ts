@@ -1,5 +1,6 @@
 import {Component, HostListener, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {CommonModule, DOCUMENT, isPlatformBrowser} from '@angular/common';
+import {HttpClient} from '@angular/common/http';
 import {DomSanitizer, Meta, SafeResourceUrl, Title} from '@angular/platform-browser';
 
 interface Group {
@@ -51,6 +52,11 @@ interface SectionMeta {
   description: string;
 }
 
+interface ImageManifest {
+  hero: HeroImage[];
+  verhuur: RentalImage[];
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -68,11 +74,8 @@ export class App implements OnInit {
   pdfPreviewUrl = '';
   pdfPreviewSafeUrl: SafeResourceUrl | null = null;
   pdfPreviewTitle = '';
-  heroImages: HeroImage[] = [
-    { src: '/assets/images/hero/outdoor_adventure.jpeg', alt: 'Avontuurlijke uitstap met prachtig uitzicht' },
-    {src: '/assets/images/hero/flour_face_hero.jpeg', alt: 'Plezier maken tijdens spelletjes op kamp'},
-    {src: '/assets/images/hero/golden_hour_sunset.jpeg', alt: 'Chiroleden bij zonsondergang tijdens activiteit'},
-  ];
+  heroImages: HeroImage[] = [];
+  imagesLoaded = false;
   private currentSection = 'home';
   private baseUrl = 'https://chirojongens.chiroelzestraat.be';
   private sectionMeta: Record<string, SectionMeta> = {
@@ -102,64 +105,20 @@ export class App implements OnInit {
     }
   };
 
-  rentalImages: RentalImage[] = [
-    {
-      src: '/assets/images/verhuur/IMG_6925.jpg',
-      thumbSrc: '/assets/images/verhuur/IMG_6925-min.jpg',
-      alt: 'Lokaal overzicht'
-    },
-    {
-      src: '/assets/images/verhuur/IMG_6926.jpg',
-      thumbSrc: '/assets/images/verhuur/IMG_6926-min.jpg',
-      alt: 'Grote zaal'
-    },
-    {src: '/assets/images/verhuur/IMG_6928.jpg', thumbSrc: '/assets/images/verhuur/IMG_6928-min.jpg', alt: 'Keuken'},
-    {
-      src: '/assets/images/verhuur/IMG_6929.jpg',
-      thumbSrc: '/assets/images/verhuur/IMG_6929-min.jpg',
-      alt: 'Vergaderzaal'
-    },
-    {src: '/assets/images/verhuur/IMG_6930.jpg', thumbSrc: '/assets/images/verhuur/IMG_6930-min.jpg', alt: 'Sanitair'},
-    {
-      src: '/assets/images/verhuur/IMG_6931.jpg',
-      thumbSrc: '/assets/images/verhuur/IMG_6931-min.jpg',
-      alt: 'Extra ruimte'
-    },
-    {src: '/assets/images/verhuur/IMG_6932.jpg', thumbSrc: '/assets/images/verhuur/IMG_6932-min.jpg', alt: 'Tuin'},
-    {src: '/assets/images/verhuur/IMG_6933.jpg', thumbSrc: '/assets/images/verhuur/IMG_6933-min.jpg', alt: 'Speeltuig'},
-    {
-      src: '/assets/images/verhuur/IMG_6934.jpg',
-      thumbSrc: '/assets/images/verhuur/IMG_6934-min.jpg',
-      alt: 'Buitenzicht'
-    },
-    {src: '/assets/images/verhuur/IMG_6935.jpg', thumbSrc: '/assets/images/verhuur/IMG_6935-min.jpg', alt: 'Parking'},
-    {src: '/assets/images/verhuur/IMG_6936.jpg', thumbSrc: '/assets/images/verhuur/IMG_6936-min.jpg', alt: 'Omgeving'},
-    {src: '/assets/images/verhuur/IMG_6937.jpg', thumbSrc: '/assets/images/verhuur/IMG_6937-min.jpg', alt: 'Toegang'},
-    {src: '/assets/images/verhuur/IMG_6938.jpg', thumbSrc: '/assets/images/verhuur/IMG_6938-min.jpg', alt: 'Ingang'},
-    {
-      src: '/assets/images/verhuur/IMG_6939.jpg',
-      thumbSrc: '/assets/images/verhuur/IMG_6939-min.jpg',
-      alt: 'Vooraanzicht'
-    }
-  ];
-
-  constructor(
-    private titleService: Title,
-    private metaService: Meta,
-    private sanitizer: DomSanitizer,
-    @Inject(DOCUMENT) private document: Document,
-    @Inject(PLATFORM_ID) private platformId: object
-  ) {
-  }
-
+  rentalImages: RentalImage[] = [];
   navItems: NavItem[] = [
-    { label: 'Home', href: '#section-home' },
-    { label: 'Groepen', href: '#section-groepen' },
-    { label: 'Verhuur', href: '#section-verhuur' },
-    { label: 'Programma', href: '#section-tprogram' },
-    { label: 'FAQ', href: '#section-faq' },
-    { label: 'Webshop', href: 'https://shop.chiroelzestraat.be/', external: true },
-    { label: 'Contact', href: '#section-contact' }
+    {label: 'Home', href: '#section-home'},
+    {label: 'Groepen', href: '#section-groepen'},
+    {label: 'Verhuur', href: '#section-verhuur'},
+    {label: 'Programma', href: '#section-tprogram'},
+    {label: 'FAQ', href: '#section-faq'},
+    {label: 'Webshop', href: 'https://shop.chiroelzestraat.be/', external: true},
+    {label: 'Contact', href: '#section-contact'}
+  ];
+  stats = [
+    {value: 62, label: 'Leden'},
+    {value: 13, label: 'Leiders'},
+    {value: 71, label: 'Jaar Chiro Elzestraat'}
   ];
 
   groups: Group[] = [
@@ -189,31 +148,33 @@ export class App implements OnInit {
       time: '14h - 19:30h'
     }
   ];
-
-  stats = [
-    { value: 62, label: 'Leden' },
-    { value: 11, label: 'Leiders' },
-    { value: 71, label: 'Jaar Chiro Elzestraat' }
-  ];
-
   rentalInfrastructure: RentalFeature[] = [
-    { text: '1 groot heem' },
-    { text: '4 kleine hemen' },
-    { text: 'Volledig uitgeruste keuken (bestek, borden, kookpotten, etc.)' },
-    { text: 'Materiaal (tafels, stoelen, kookgerei)' },
-    { text: 'Koelkast en diepvriezer' },
-    { text: 'Verwarming' },
-    { text: 'Sanitair & douche' },
-    { text: 'Grote tuin met speeltuigen' }
+    {text: '1 groot heem'},
+    {text: '4 kleine hemen'},
+    {text: 'Volledig uitgeruste keuken (bestek, borden, kookpotten, etc.)'},
+    {text: 'Materiaal (tafels, stoelen, kookgerei)'},
+    {text: 'Koelkast en diepvriezer'},
+    {text: 'Verwarming'},
+    {text: 'Sanitair & douche'},
+    {text: 'Grote tuin met speeltuigen'}
+  ];
+  rentalSurroundings: RentalFeature[] = [
+    {text: 'Zwembad'},
+    {text: 'Park, basketpleintje'},
+    {text: 'Spar, bakker, frietkot'},
+    {text: 'Colruyt (5 minuten met wagen)'},
+    {text: 'Gratis parking'}
   ];
 
-  rentalSurroundings: RentalFeature[] = [
-    { text: 'Zwembad' },
-    { text: 'Park, basketpleintje' },
-    { text: 'Spar, bakker, frietkot' },
-    { text: 'Colruyt (5 minuten met wagen)' },
-    { text: 'Gratis parking' }
-  ];
+  constructor(
+    private titleService: Title,
+    private metaService: Meta,
+    private sanitizer: DomSanitizer,
+    private http: HttpClient,
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {
+  }
 
   programs: ProgramItem[] = [
     {title: '\'t Program september - december 2025', url: '/assets/tprogram/Program-Sep-Dec.2025.pdf'},
@@ -249,9 +210,34 @@ export class App implements OnInit {
   ];
 
   ngOnInit(): void {
+    this.loadImageManifest();
     this.addStructuredData();
     this.addCanonicalTag();
     this.setupScrollObserver();
+  }
+
+  scrollToSection(href: string): void {
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({behavior: 'smooth'});
+      }
+    }
+  }
+
+  private loadImageManifest(): void {
+    this.http.get<ImageManifest>('/assets/images/manifest.json').subscribe({
+      next: (manifest) => {
+        this.heroImages = this.shuffle(manifest.hero);
+        this.rentalImages = manifest.verhuur;
+        this.imagesLoaded = true;
+      },
+      error: () => {
+        // Fallback to empty arrays - images won't show but app won't crash
+        console.warn('Could not load image manifest');
+        this.imagesLoaded = true;
+      }
+    });
   }
 
   private addStructuredData(): void {
@@ -372,13 +358,13 @@ export class App implements OnInit {
     this.faqs[index].expanded = !this.faqs[index].expanded;
   }
 
-  scrollToSection(href: string): void {
-    if (href.startsWith('#')) {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+  private shuffle<T>(array: T[]): T[] {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
+    return shuffled;
   }
 
   nextHeroImage(): void {

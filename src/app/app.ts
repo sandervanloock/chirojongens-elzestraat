@@ -214,14 +214,46 @@ export class App implements OnInit {
     this.addStructuredData();
     this.addCanonicalTag();
     this.setupScrollObserver();
+    this.handleInitialHash();
   }
 
   scrollToSection(href: string): void {
     if (href.startsWith('#')) {
       const element = document.querySelector(href);
       if (element) {
-        element.scrollIntoView({behavior: 'smooth'});
+        // Close mobile menu if open
+        this.closeMobileMenu();
+
+        // Smooth scroll to section
+        element.scrollIntoView({behavior: 'smooth', block: 'start'});
+
+        // Update URL hash without jumping
+        if (isPlatformBrowser(this.platformId)) {
+          history.pushState(null, '', href);
+        }
       }
+    }
+  }
+
+  onNavClick(event: Event, item: NavItem): void {
+    if (!item.external) {
+      event.preventDefault();
+      this.scrollToSection(item.href);
+    }
+    this.closeMobileMenu();
+  }
+
+  private handleInitialHash(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    // Handle hash in URL on page load (e.g., from bookmarks or external links)
+    if (window.location.hash) {
+      setTimeout(() => {
+        const element = document.querySelector(window.location.hash);
+        if (element) {
+          element.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }
+      }, 100); // Small delay to ensure page is fully rendered
     }
   }
 

@@ -177,8 +177,8 @@ export class App implements OnInit {
   }
 
   programs: ProgramItem[] = [
-    {title: '\'t Program januari - april 2026', url: '/assets/tprogram/Program-JAN-APR.2026.pdf'},
-    {title: '\'t Program september - december 2025', url: '/assets/tprogram/Program-Sep-Dec.2025.pdf'}
+    {title: '\'t Program april - juni 2026', url: '/assets/tprogram/Program-APR-JUN.2026.pdf'},
+    {title: '\'t Program januari - april 2026', url: '/assets/tprogram/Program-JAN-APR.2026.pdf'}
   ];
 
   faqs: FAQItem[] = [

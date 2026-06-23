@@ -324,6 +324,155 @@
   </div>
 </section>
 
+<!-- Camp Section -->
+<section class="section bg-light" id="section-kamp">
+  <div class="container">
+    <h2 class="section__heading">Kamp 2026</h2>
+    <p class="section__lead">
+      Het hoogtepunt van het Chirojaar! Dit jaar trekken we naar Ocquier voor onze kampeditie
+      <strong>"{{ campInfo.theme }}"</strong> &mdash; een onvergetelijke, winterse zomer in de bergen.
+    </p>
+
+    <!-- CTA Hero Banner -->
+    <div class="camp-hero">
+      <div class="camp-hero__content">
+        <div class="camp-hero__info">
+          <span class="camp-hero__theme">{{ campInfo.theme }}</span>
+          <span class="camp-hero__dates">18 – 28 juli 2026 · {{ campInfo.location }}</span>
+        </div>
+        <div class="camp-hero__actions">
+          <a [href]="campInfo.registrationUrl" class="btn btn--primary btn--large" rel="noopener noreferrer"
+             target="_blank">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M9 11l3 3L22 4"></path>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+            Schrijf in voor kamp
+          </a>
+          <button (click)="openPdfPreview(campInfo.bookletUrl, 'Kampboekje 2026')"
+                  class="btn btn--secondary">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" x2="8" y1="13" y2="13"></line>
+              <line x1="16" x2="8" y1="17" y2="17"></line>
+            </svg>
+            Bekijk kampboekje
+          </button>
+        </div>
+        <p class="camp-hero__note">
+          Inschrijven gebeurt via <a [href]="campInfo.registrationUrl" rel="noopener noreferrer"
+                                     target="_blank">Ordolio</a>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="camp-grid">
+      <!-- Left Column -->
+      <div class="camp-grid__col">
+        <!-- Camp Price Card -->
+        <div class="camp__card">
+          <h3>Kampprijs</h3>
+          <p>
+            We werken met een solidair betalingssysteem: je kiest zelf hoeveel je bijdraagt binnen
+            onderstaande grenzen. Zo krijgt ieder kind de kans om mee te gaan op kamp.
+          </p>
+          <ul class="camp-prices">
+            <li *ngFor="let price of campPrices" class="camp-prices__item">
+              <span class="camp-prices__group">{{ price.group }}</span>
+              <span class="camp-prices__range">{{ price.range }}</span>
+            </li>
+          </ul>
+          <p class="text-sm text-muted">
+            Deze bijdragen worden enkel bekeken door onze financiële verantwoordelijken.
+          </p>
+          <a [href]="campInfo.registrationUrl" class="btn btn--primary" rel="noopener noreferrer" target="_blank">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M9 11l3 3L22 4"></path>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+            Inschrijven via Ordolio
+          </a>
+        </div>
+
+        <!-- Practical Info Card -->
+        <div class="camp__card">
+          <h3>Praktisch</h3>
+          <div class="rental__details">
+            <p><strong>Kampadres:</strong> {{ campInfo.address }}</p>
+            <p><strong>Coördinaten:</strong> {{ campInfo.coordinates }}</p>
+          </div>
+          <div class="camp-map">
+            <iframe
+              class="camp-map__frame"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://maps.google.com/maps?q=50.3914,5.4035&z=12&hl=nl&output=embed"
+              title="Kaart van het kampterrein in Ocquier">
+            </iframe>
+            <a [href]="campInfo.mapsUrl" class="camp-map__link" rel="noopener noreferrer" target="_blank">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              Open in Google Maps
+            </a>
+          </div>
+          <p class="text-sm">
+            Volg in de buurt van het kampterrein de rode bordjes (pijlen). Alle details vind je in het
+            <button (click)="openPdfPreview(campInfo.bookletUrl, 'Kampboekje 2026')" class="link-button">kampboekje
+            </button>
+            .
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Column: Calendar -->
+      <div class="camp-grid__col">
+        <div class="camp__card">
+          <h3>Kalender</h3>
+          <ul class="camp-timeline">
+            <li *ngFor="let item of campDates" class="camp-timeline__item">
+              <span class="camp-timeline__date">{{ item.date }}</span>
+              <span class="camp-timeline__desc">{{ item.description }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barbecue Banner -->
+    <div class="camp-bbq" id="camp-bbq">
+      <div class="camp-bbq__header">
+        <h3 class="camp-bbq__title">Barbecue op de bezoekdag</h3>
+        <p class="camp-bbq__subtitle">Dinsdag 21 juli 2026 · vanaf 14u00 op het kampterrein</p>
+      </div>
+      <p class="camp-bbq__intro">
+        Tijdens de bezoekdag organiseren we een barbecue zodat ouders samen met hun kinderen op het
+        kampterrein kunnen eten. Deze maaltijd valt <strong>niet</strong> onder de kampprijs. Iedereen die
+        meedoet (ook de leden!) moet zich apart inschrijven. Betaling verloopt automatisch via Ordolio.
+      </p>
+      <div class="camp-bbq__menus">
+        <div *ngFor="let menu of campMenus" class="camp-bbq__menu">
+          <div class="camp-bbq__menu-head">
+            <span class="camp-bbq__menu-name">{{ menu.name }}</span>
+            <span class="camp-bbq__menu-price">{{ menu.price }}</span>
+          </div>
+          <p class="camp-bbq__menu-contents">{{ menu.contents }}</p>
+        </div>
+      </div>
+      <a [href]="campInfo.bbqUrl" class="btn btn--primary btn--large" rel="noopener noreferrer" target="_blank">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M9 11l3 3L22 4"></path>
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+        </svg>
+        Schrijf in voor de barbecue
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- FAQ Section -->
 <section id="section-faq" class="section bg-light">
   <div class="container">

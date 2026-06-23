@@ -1244,6 +1244,373 @@
 }
 
 // ==================================
+// CAMP SECTION
+// ==================================
+
+.camp-hero {
+  background: linear-gradient(135deg, $chiro-blue 0%, darken($chiro-blue, 18%) 100%);
+  border-radius: $border-radius-xl;
+  padding: $spacing-2xl $spacing-3xl;
+  margin-bottom: $spacing-3xl;
+  text-align: center;
+
+  @include mobile-only {
+    padding: $spacing-xl $spacing-lg;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-lg;
+  }
+
+  &__info {
+    color: $white;
+  }
+
+  &__theme {
+    display: block;
+    font-family: $font-heading;
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-extrabold;
+    line-height: 1.1;
+
+    @include mobile-only {
+      font-size: $font-size-3xl;
+    }
+  }
+
+  &__dates {
+    display: block;
+    margin-top: $spacing-sm;
+    font-size: $font-size-lg;
+    opacity: 0.9;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    justify-content: center;
+
+    .btn--large {
+      padding: $spacing-lg $spacing-2xl;
+      font-size: $font-size-lg;
+
+      svg {
+        width: 24px;
+        height: 24px;
+        margin-right: $spacing-sm;
+      }
+    }
+
+    .btn--secondary {
+      background: rgba($white, 0.15);
+      border-color: $white;
+      color: $white;
+
+      svg {
+        width: 20px;
+        height: 20px;
+        margin-right: $spacing-sm;
+      }
+
+      &:hover {
+        background: $white;
+        color: $chiro-blue;
+      }
+    }
+  }
+
+  &__note {
+    color: $white;
+    font-size: $font-size-base;
+    opacity: 0.9;
+
+    a {
+      color: $white;
+      font-weight: $font-weight-semibold;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  }
+}
+
+.camp-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-2xl;
+  margin-bottom: $spacing-3xl;
+
+  @include tablet-up {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xl;
+  }
+}
+
+.camp__card {
+  @include card-base;
+  @include slide-up;
+  height: fit-content;
+
+  h3 {
+    font-family: $font-heading;
+    font-size: $font-size-xl;
+    color: $chiro-navy;
+    margin-bottom: $spacing-md;
+  }
+
+  p {
+    color: $medium-gray;
+    line-height: $line-height-relaxed;
+    margin-bottom: $spacing-md;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-sm;
+    margin-top: $spacing-sm;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.camp-map {
+  margin-bottom: $spacing-md;
+  border-radius: $border-radius-md;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+  border: 1px solid $light-bg;
+
+  &__frame {
+    display: block;
+    width: 100%;
+    height: 220px;
+    border: 0;
+    filter: saturate(1.05);
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-sm;
+    padding: $spacing-md;
+    background: linear-gradient(135deg, $chiro-blue 0%, darken($chiro-blue, 12%) 100%);
+    color: $white;
+    font-weight: $font-weight-semibold;
+    font-size: $font-size-sm;
+    transition: filter $transition-base;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    &:hover {
+      filter: brightness(1.08);
+      color: $white;
+    }
+  }
+}
+
+.camp-prices {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 $spacing-md;
+
+  &__item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: $spacing-sm;
+    padding: $spacing-sm 0;
+    border-bottom: 1px solid $light-bg;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__group {
+    color: $dark-gray;
+    font-weight: $font-weight-medium;
+  }
+
+  &__range {
+    font-family: $font-heading;
+    font-weight: $font-weight-bold;
+    color: $chiro-blue;
+    white-space: nowrap;
+  }
+}
+
+.camp-timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+    padding: $spacing-md 0 $spacing-md $spacing-lg;
+    border-left: 3px solid $chiro-blue;
+    margin-left: $spacing-xs;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -7px;
+      top: $spacing-lg;
+      width: 11px;
+      height: 11px;
+      border-radius: $border-radius-full;
+      background: $chiro-blue;
+    }
+
+    &:not(:last-child) {
+      padding-bottom: $spacing-md;
+    }
+  }
+
+  &__date {
+    font-family: $font-heading;
+    font-weight: $font-weight-bold;
+    color: $chiro-navy;
+  }
+
+  &__desc {
+    color: $medium-gray;
+    font-size: $font-size-sm;
+    line-height: $line-height-relaxed;
+  }
+}
+
+.camp-bbq {
+  @include card-base;
+  border-top: 6px solid $chiro-red;
+  text-align: center;
+
+  &__header {
+    margin-bottom: $spacing-lg;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $chiro-navy;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__subtitle {
+    color: $chiro-red;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__intro {
+    max-width: 700px;
+    margin: 0 auto $spacing-xl;
+    color: $medium-gray;
+    line-height: $line-height-relaxed;
+
+    strong {
+      color: $chiro-navy;
+    }
+  }
+
+  &__menus {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+    max-width: 700px;
+    margin: 0 auto $spacing-xl;
+
+    @include tablet-up {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__menu {
+    background: $light-bg;
+    border-radius: $border-radius-md;
+    padding: $spacing-lg;
+    text-align: left;
+  }
+
+  &__menu-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__menu-name {
+    font-family: $font-heading;
+    font-weight: $font-weight-bold;
+    color: $chiro-navy;
+  }
+
+  &__menu-price {
+    font-family: $font-heading;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-extrabold;
+    color: $chiro-red;
+  }
+
+  &__menu-contents {
+    color: $medium-gray;
+    font-size: $font-size-sm;
+    line-height: $line-height-relaxed;
+    margin: 0;
+  }
+
+  .btn--large {
+    padding: $spacing-lg $spacing-2xl;
+    font-size: $font-size-lg;
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: $chiro-blue;
+  font-weight: $font-weight-semibold;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+
+  &:hover {
+    color: darken($chiro-blue, 12%);
+  }
+}
+
+// ==================================
 // FAQ SECTION
 // ==================================
 

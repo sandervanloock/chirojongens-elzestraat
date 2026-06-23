@@ -24,6 +24,17 @@ interface ProgramItem {
   url: string;
 }
 
+interface CampDate {
+  date: string;
+  description: string;
+}
+
+interface CampMenu {
+  name: string;
+  price: string;
+  contents: string;
+}
+
 interface FAQItem {
   question: string;
   answer: string;
@@ -78,43 +89,28 @@ export class App implements OnInit {
   imagesLoaded = false;
   private currentSection = 'home';
   private baseUrl = 'https://chirojongens.chiroelzestraat.be';
-  private sectionMeta: Record<string, SectionMeta> = {
-    'home': {
-      title: 'Chirojongens Elzestraat | Jeugdbeweging Sint-Katelijne-Waver',
-      description: 'Chirojongens Elzestraat - Jeugdbeweging voor jongens van 6 tot 18 jaar in Sint-Katelijne-Waver. Elke zondag plezier en avontuur.'
-    },
-    'groepen': {
-      title: 'Groepen | Chirojongens Elzestraat',
-      description: 'Ontdek onze leeftijdsgroepen: Speelclub, Rakkers, Toppers, Kerels en Aspiranten. Voor jongens van 6 tot 18 jaar.'
-    },
-    'verhuur': {
-      title: 'Verhuur Lokalen | Chirojongens Elzestraat',
-      description: 'Huur onze lokalen in Sint-Katelijne-Waver. Volledig uitgeruste keuken, grote zaal en tuin. €250 per weekend.'
-    },
-    'tprogram': {
-      title: 'Programma | Chirojongens Elzestraat',
-      description: 'Download het programma en kampboekje van Chirojongens Elzestraat. Bekijk alle geplande activiteiten.'
-    },
-    'faq': {
-      title: 'Veelgestelde Vragen | Chirojongens Elzestraat',
-      description: 'Antwoorden op veelgestelde vragen over lidmaatschap, activiteiten en beleid van Chirojongens Elzestraat.'
-    },
-    'contact': {
-      title: 'Contact | Chirojongens Elzestraat',
-      description: 'Neem contact op met Chirojongens Elzestraat. Vind noodcontacten en algemene contactinformatie.'
-    }
-  };
-
-  rentalImages: RentalImage[] = [];
   navItems: NavItem[] = [
     {label: 'Home', href: '#section-home'},
     {label: 'Groepen', href: '#section-groepen'},
     {label: 'Verhuur', href: '#section-verhuur'},
     {label: 'Programma', href: '#section-tprogram'},
+    {label: 'Kamp', href: '#section-kamp'},
     {label: 'FAQ', href: '#section-faq'},
     {label: 'Webshop', href: 'https://shop.chiroelzestraat.be/', external: true},
     {label: 'Contact', href: '#section-contact'}
   ];
+
+  rentalImages: RentalImage[] = [];
+  campInfo = {
+    theme: 'Winter in Elzestrasse',
+    location: 'Ocquier (Clavier), Wallonië',
+    address: 'Rue de la Croix, Ocquier',
+    coordinates: '50.3914°N, 5.4035°E',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=50.3914,5.4035',
+    registrationUrl: 'https://app.ordolio.com/events/kamp-2026-273130/',
+    bbqUrl: 'https://app.ordolio.com/events/bbq-bezoekdag-907992/',
+    bookletUrl: '/assets/tprogram/kampboekje2026.pdf'
+  };
   stats = [
     {value: 62, label: 'Leden'},
     {value: 13, label: 'Leiders'},
@@ -180,6 +176,61 @@ export class App implements OnInit {
     {title: '\'t Program april - juni 2026', url: '/assets/tprogram/Program-APR-JUN.2026.pdf'},
     {title: '\'t Program januari - april 2026', url: '/assets/tprogram/Program-JAN-APR.2026.pdf'}
   ];
+  campDates: CampDate[] = [
+    {
+      date: '14 juli',
+      description: 'Camion laden. Kerels en aspiranten worden verwacht (uur volgt). Valiezen mogen rond 18u00 gebracht worden.'
+    },
+    {date: '15 juli', description: 'Leiding en aspiranten vertrekken om 6u \'s ochtends op voorkamp.'},
+    {date: '18 juli', description: 'Aankomst van de leden op het kampterrein om 17u00.'},
+    {
+      date: '21 juli',
+      description: 'Bezoekdag vanaf 14u00 met barbecue voor iedereen. Speelclub komt aan op het kampterrein.'
+    },
+    {
+      date: '28 juli',
+      description: 'Alle leden (behalve aspiranten) gaan met de bus naar huis, rond 13u45 – 14u00 aan de kerk.'
+    },
+    {date: '31 juli', description: 'Leiding en aspiranten komen thuis met de camion, rond 12u in Elzestraat.'}
+  ];
+  campPrices = [
+    {group: 'Speelclub (1e – 3e leerjaar)', range: '€140 – €180'},
+    {group: 'Rakkers en ouder (vanaf 4e leerjaar)', range: '€160 – €200'}
+  ];
+  campMenus: CampMenu[] = [
+    {name: 'Volwassenenmenu', price: '€19', contents: 'Hamburger, saté en worst — met ruim groentebuffet'},
+    {name: 'Kindermenu', price: '€14', contents: 'Hamburger en worst — met ruim groentebuffet'}
+  ];
+  private sectionMeta: Record<string, SectionMeta> = {
+    'home': {
+      title: 'Chirojongens Elzestraat | Jeugdbeweging Sint-Katelijne-Waver',
+      description: 'Chirojongens Elzestraat - Jeugdbeweging voor jongens van 6 tot 18 jaar in Sint-Katelijne-Waver. Elke zondag plezier en avontuur.'
+    },
+    'groepen': {
+      title: 'Groepen | Chirojongens Elzestraat',
+      description: 'Ontdek onze leeftijdsgroepen: Speelclub, Rakkers, Toppers, Kerels en Aspiranten. Voor jongens van 6 tot 18 jaar.'
+    },
+    'verhuur': {
+      title: 'Verhuur Lokalen | Chirojongens Elzestraat',
+      description: 'Huur onze lokalen in Sint-Katelijne-Waver. Volledig uitgeruste keuken, grote zaal en tuin. €250 per weekend.'
+    },
+    'tprogram': {
+      title: 'Programma | Chirojongens Elzestraat',
+      description: 'Download het programma en kampboekje van Chirojongens Elzestraat. Bekijk alle geplande activiteiten.'
+    },
+    'kamp': {
+      title: 'Kamp 2026 | Chirojongens Elzestraat',
+      description: 'Zomerkamp "Winter in Elzestrasse" in Ocquier van 18 tot 28 juli 2026. Schrijf je in via Ordolio en reserveer je plaats voor de barbecue op de bezoekdag.'
+    },
+    'faq': {
+      title: 'Veelgestelde Vragen | Chirojongens Elzestraat',
+      description: 'Antwoorden op veelgestelde vragen over lidmaatschap, activiteiten en beleid van Chirojongens Elzestraat.'
+    },
+    'contact': {
+      title: 'Contact | Chirojongens Elzestraat',
+      description: 'Neem contact op met Chirojongens Elzestraat. Vind noodcontacten en algemene contactinformatie.'
+    }
+  };
 
   faqs: FAQItem[] = [
     {
@@ -354,7 +405,7 @@ export class App implements OnInit {
   private setupScrollObserver(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    const sections = ['home', 'groepen', 'verhuur', 'tprogram', 'faq', 'contact'];
+    const sections = ['home', 'groepen', 'verhuur', 'tprogram', 'kamp', 'faq', 'contact'];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {

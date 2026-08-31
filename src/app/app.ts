@@ -212,7 +212,7 @@ export class App implements OnInit {
     },
     'verhuur': {
       title: 'Verhuur Lokalen | Chirojongens Elzestraat',
-      description: 'Huur onze lokalen in Sint-Katelijne-Waver. Volledig uitgeruste keuken, grote zaal en tuin. €250 per weekend.'
+      description: 'Huur onze lokalen in Sint-Katelijne-Waver. Volledig uitgeruste keuken, grote zaal en tuin. €300 per weekend.'
     },
     'tprogram': {
       title: 'Programma | Chirojongens Elzestraat',

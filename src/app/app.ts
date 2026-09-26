@@ -173,8 +173,8 @@ export class App implements OnInit {
   }
 
   programs: ProgramItem[] = [
-    {title: '\'t Program april - juni 2026', url: '/assets/tprogram/Program-APR-JUN.2026.pdf'},
-    {title: '\'t Program januari - april 2026', url: '/assets/tprogram/Program-JAN-APR.2026.pdf'}
+    {title: '\'t Program september - december 2026', url: '/assets/tprogram/Program_Sep-Dec_2026.pdf'},
+    {title: '\'t Program april - juni 2026', url: '/assets/tprogram/Program-APR-JUN.2026.pdf'}
   ];
   campDates: CampDate[] = [
     {

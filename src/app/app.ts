@@ -245,7 +245,7 @@ export class App implements OnInit {
     },
     {
       question: 'Hoeveel kost het lidgeld?',
-      answer: 'Het lidgeld wordt jaarlijks vastgesteld. Dit omvat alle activiteiten gedurende het werkjaar. Neem contact op voor het exacte bedrag voor dit jaar.',
+      answer: 'Het lidgeld wordt jaarlijks vastgesteld. Dit omvat alle zondagactiviteiten gedurende het werkjaar, exclusief speciale dagen zoals Christus Koning of weekends. Het lidgeld voor werkjaar 2026 - 2027 is €40 voor iedereen die inschrijft voor 1/11. Daarna vragen we €50.',
       expanded: false
     },
     {

@@ -257,6 +257,11 @@ export class App implements OnInit {
       question: 'Moet mijn kind iets meebrengen?',
       answer: 'We raden aan om steeds weer- en windbestendige kledij aan te doen, want we gaan vaak buiten. Voor specifieke activiteiten krijgen ouders vooraf bericht via e-mail of sociale media.',
       expanded: false
+    },
+    {
+      question: 'Wat is het Aanspreekpunt Integriteit (API)?',
+      answer: 'Chiro hecht veel belang aan een integere omgeving voor iedereen. Heb je een vraag of melding over grensoverschrijdend gedrag, dan kan je terecht bij het Aanspreekpunt Integriteit van Chiro Vlaanderen. Meer info vind je op <a href="https://chiro.be/aanspreekpunt-integriteit-api" target="_blank" rel="noopener">de website van Chiro Vlaanderen</a>.',
+      expanded: false
     }
   ];
 
